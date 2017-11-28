@@ -27,9 +27,6 @@ router.get('/:id', function(req, res) {
     var userdb = db.get('users');
     var questiondb = db.get('questions');
     var levelReq = req.params.id;
-    if(isNaN(levelReq)){
-    	//throw error
-    }
     
     var x = req.body.firstName;
     var y = req.body.fbid;
@@ -38,12 +35,20 @@ router.get('/:id', function(req, res) {
     
     userdb.findOne({ hash : sha3req }, function(err, usr){
         if (err) throw err;
+        if(isNaN(levelReq)){
+    		levelReq = usr.currLvl
+    		// or throw error
+    	}
         if(parseInt(levelReq)>parseInt(usr.currLvl)){
         	levelReq = usr.currLvl
         }
     });
     
-    res.json();
+    questiondb.findOne({ level: levelReq }, function(err, question){
+    	if (err) throw err;
+    	res.json(question);
+    });
+    
 });
 
 module.exports = router;
