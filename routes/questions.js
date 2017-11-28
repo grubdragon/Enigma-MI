@@ -18,13 +18,14 @@ router.put('/:id', function(req, res){
     }, function(err, video){
         if (err) throw err;
 
-        res.json(video);
+        res.json(video)
     });
 });
 
 
 router.get('/:id', function(req, res) {
-    var collection = db.get('users');
+    var userdb = db.get('users');
+    var questiondb = db.get('questions');
     var levelReq = req.params.id;
     if(isNaN(levelReq)){
     	//throw error
@@ -35,11 +36,14 @@ router.get('/:id', function(req, res) {
     var z = req.body.lastName
     var sha3req = sha3_512(x+y+z);
     
-    collection.findOne({ hash : sha3req }, function(err, video){
+    userdb.findOne({ hash : sha3req }, function(err, usr){
         if (err) throw err;
+        if(parseInt(levelReq)>parseInt(usr.currLvl)){
+        	levelReq = usr.currLvl
+        }
     });
     
-    res.json(video);
+    res.json();
 });
 
 module.exports = router;
