@@ -31,7 +31,7 @@ router.get('/:id', function(req, res) {
     var x = req.body.firstName;
     var y = req.body.fbid;
     var z = req.body.lastName
-    var sha3req = sha3_512(x+y+z);
+    var sha3req = sha3.sha3_512(x+y+z);
     
     userdb.findOne({ hash : sha3req }, function(err, usr){
         if (err) throw err;
