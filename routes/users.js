@@ -3,10 +3,19 @@ var crypto = require('crypto');
 var router = express.Router();
 
 /* GET users listing. */
-router.post('/', function(req, res, next) {
+router.post('/leaderboard', function(req, res) {
+    var userdb = db.get('users');
+    var x = req.body['firstName'];
+    var y = req.body['fbid'];
+    var z = req.body['lastName'];
+    var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
+    userdb.findOne({ "hash" : md5req }, function(err, usr){
+    	res.json( userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"answered_time":1,"registered_time":1}) );
+	});
+    
 
-	res.send('respond with a resource');
 });
+db.mycol.
 
 router.post('/', function(req, res) {
 	var userdb = db.get('users');
@@ -21,14 +30,16 @@ router.post('/', function(req, res) {
 		else if(usr){
 			res.json({"error":"The user you're trying to signup already seems to exist."})
 		}
-		
+
 		else{
 			userdb.insertOne({
 				"firstName":firstName,
 				"lastName":lastName,
 				"fbid":fbid,
 				"currLevel": 1,
-				"hash": hash
+				"hash": hash,
+				"registered_time": (new Date()).getTime();
+				"answered_time":Number.POSITIVE_INFINITY
 			},function(err, result) {
 				assert.equal(err, null);
 				console.log("Inserted a document into the restaurants collection.");
