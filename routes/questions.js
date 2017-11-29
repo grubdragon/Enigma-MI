@@ -34,7 +34,13 @@ router.post('/submit/:level', function(req, res) {
                     questiondb.findOne({ "level": parseInt(level) }, function(err, q){
                         if (err) throw err;
                         else if(usr_ans == q.ans){
-                            userdb.updateOne({"level": parseInt(level)}, {"currlevel": parseInt(level)+1});
+                            userdb.updateOne({"fbid": fbid}, 
+                                {
+                                    "answered_time":{
+                                        level: (new Date()).getTime();
+                                    },
+                                    "currlevel": parseInt(level)+1
+                                });
 
                             res.json({"success":"Proceed to next level"});
                         }
