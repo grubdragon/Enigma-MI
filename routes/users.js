@@ -14,6 +14,25 @@ router.post('/leaderboard', function(req, res) {
 	});
 });
 
+router.post('/check', function(req, res){
+	var userdb = db.get('users');
+	var firstName = req.body['firstName'];
+	var lastName = req.body['lastName'];
+	var fbid = req.body['fbid'];
+	var md5req = crypto.createHash('md5').update(firstName+fbid+lastName).digest('hex');
+	userdb.findOne({ "hash" : md5req }, function(err, usr){
+    	if (err) throw err;
+
+		else if(usr){
+			res.json({"success":"Checks out"});
+		}
+
+		else{
+			res.json({"error":"No such user found"});
+		}
+	});
+});
+
 router.post('/', function(req, res) {
 	var userdb = db.get('users');
 	var firstName = req.body['firstName'];
@@ -25,7 +44,7 @@ router.post('/', function(req, res) {
 		if (err) throw err;
 
 		else if(usr){
-			res.json({"error":"The user you're trying to signup already seems to exist."})
+			res.json({"error":"The user you're trying to signup already seems to exist."});
 		}
 
 		else{
