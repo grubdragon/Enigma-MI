@@ -12,10 +12,7 @@ router.post('/leaderboard', function(req, res) {
     userdb.findOne({ "hash" : md5req }, function(err, usr){
     	res.json( userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"answered_time":1,"registered_time":1}) );
 	});
-    
-
 });
-db.mycol.
 
 router.post('/', function(req, res) {
 	var userdb = db.get('users');
