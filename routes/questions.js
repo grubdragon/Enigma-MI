@@ -1,6 +1,8 @@
 var express = require('express');
 var sha3 = require('js-sha3');
 var router = express.Router();
+var monk = require('monk');
+var db = monk('localhost:27017/treasure');
 
 /* GET home page. */
 router.put('/', function(req, res, next) {
