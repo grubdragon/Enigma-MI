@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
 				"fbid":fbid,
 				"currLevel": 1,
 				"hash": hash,
-				"registered_time": (new Date()).getTime();
+				"registered_time": (new Date()).getTime(),
 				"answered_time":Number.POSITIVE_INFINITY
 			},function(err, result) {
 				assert.equal(err, null);
