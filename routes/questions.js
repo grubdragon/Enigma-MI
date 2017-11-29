@@ -25,31 +25,31 @@ router.put('/:id', function(req, res){
 });
 */
 
-router.get('/:id', function(req, res) {
+router.post('/:id', function(req, res) {
     var userdb = db.get('users');
     var questiondb = db.get('questions');
-    var levelReq = req.query['levelReq'];
-    
-    var x = req.query['firstName'];
-    var y = req.query['fbid'];
-    var z = req.query['lastName'];
+    var levelReq = req.body['levelReq'];
+    var x = req.body['firstName'];
+    var y = req.body['fbid'];
+    var z = req.body['lastName'];
     var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
 
     userdb.findOne({ hash : md5req }, function(err, usr){
         if (err) throw err;
-        console.log("usr: "+usr);
+
         if(isNaN(levelReq)){
-    		levelReq = usr.currLevel
-    		// or throw error
+          levelReq = usr.currLevel
     	}
-        if(parseInt(levelReq)>parseInt(usr.currLevel)){
+
+        if(levelReq>usr.currLevel){
         	levelReq = usr.currLevel
         }
-    });
-    
-    questiondb.findOne({ level: levelReq }, function(err, question){
-    	if (err) throw err;
-    	res.json(question);
+
+        questiondb.findOne({ level: levelReq }, function(err, question){
+            if (err) throw err;
+            res.json(question);
+        });
+
     });
     
 });
