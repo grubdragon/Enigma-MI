@@ -1,74 +1,126 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; 
+}
 
 a {
-  color: #00B7FF; }
+	color: #00B7FF; 
+}
 
 
 
 /* Login page */
 
-@media (min-width: 768px) {
-    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
-        margin-left: 25%;
-    }
+body {
+	background: #EAEAEA;
 }
-
-.omb_login .omb_authTitle {
-    text-align: center;
-	line-height: 300%;
+.login_section {
+	text-align: center; 
+	font-family: 'Exo 2', sans-serif;
 }
-	
-.omb_login .omb_socialButtons a {
-	color: white; // In yourUse @body-bg 
-	opacity:0.9;
-}
-.omb_login .omb_socialButtons a:hover {
-    color: white;
-	opacity:1;    	
-}
-.omb_login .omb_socialButtons .omb_btn-facebook {background: #3b5998;}
-.omb_login .omb_socialButtons .omb_btn-google {background: #c32f10;}
-
-
-.omb_login .omb_loginOr {
-	position: relative;
-	font-size: 1.5em;
-	color: #aaa;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-}
-.omb_login .omb_loginOr .omb_hrOr {
-	background-color: #cdcdcd;
-	height: 1px;
-	margin-top: 0px !important;
-	margin-bottom: 0px !important;
-}
-.omb_login .omb_loginOr .omb_spanOr {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: -0.6em;
-	margin-left: -1.5em;
-	background-color: white;
-	width: 3em;
+.register_section {
 	text-align: center;
-}			
-
-.omb_login .omb_loginForm .input-group.i {
-	width: 2em;
+	font-family: 'Exo 2', sans-serif;
 }
-.omb_login .omb_loginForm  .help-block {
-    color: red;
+.fa {
+	padding: 0.5em;
+	font-size: 2.5em;
+	width: 3em;
+	height: 2em;
+	border-radius: 10%;
+	text-align: center;
+	text-decoration: none;
+	margin: 0.7em 0 0.5em 0;
 }
 
-	
-@media (min-width: 768px) {
-    .omb_login .omb_forgotPwd {
-        text-align: center;
-		margin-top:10px;
- 	}		
-}  
+.fa:hover {
+	opacity: 0.75;
+	text-decoration: none;
+	color: white;
+}
+
+.fa-facebook {
+	background: #3B5998;
+	color: white;
+	text-decoration: none;
+}
+
+.login_title {
+	margin-top: 2.5em;
+	text-align: center;
+	margin-bottom: 1em;
+	font-size: 2.5em;
+}
+
+.line {
+	background: black;
+	height: 1px;
+	width: 35%;
+	margin: 0 auto;
+	margin-top: 2em;
+}
+.register_title {
+	margin: 2em 0 1em 0;
+}
+.register_cont {
+	text-decoration: none;
+	font-size: 1.7em;
+}
+.register_cont:hover {
+	text-decoration: none;
+} 
+
+
+
+/* Sign up page */
+
+body {
+    background: #EAEAEA;
+}
+.fa {
+	padding: 0.5em;
+	font-size: 2.5em;
+	width: 3em;
+	height: 2em;
+	border-radius: 10%;
+	text-align: center;
+	text-decoration: none;
+	margin: 0.7em 0 0.5em 0;
+}
+
+.fa:hover {
+	opacity: 0.75;
+	text-decoration: none;
+	color: white;
+}
+
+.fa-facebook {
+	background: #3B5998;
+	color: white;
+	text-decoration: none;
+}
+#email {
+	width: 30%;
+	margin: 0 auto;
+}
+.title {
+	font-family: 'Exo 2', sans-serif;
+	font-size: 2.3em;
+	margin-top: 2em;
+}
+.fbverify {
+	font-family: 'Exo 2', sans-serif;
+	font-size: 1.6em;
+	margin: 1.5em 0 0 0;
+}
+.container {
+	text-align: center;
+}
+.user {
+	font-family: 'Exo 2', sans-serif;
+	font-size: 1.4em;
+	margin: 1em;
+}
+.btn {
+	margin-top: 1em;
+}
