@@ -15,7 +15,7 @@ app.config(function(FacebookProvider) {
 	FacebookProvider.init('364525113975028');
 })
 
-app.controller('facebookCtrl', function ($scope, Facebook) {
+app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) {
 	$scope.loginStatus = 'disconnected';
 	$scope.facebookIsReady = false;
 	$scope.user = null;
@@ -46,7 +46,7 @@ app.controller('facebookCtrl', function ($scope, Facebook) {
 		}
 	}
 	);
-});
+}]);
 
 
 // ***** -> uncomment and define the controller function here
