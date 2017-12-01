@@ -6,22 +6,41 @@ var db = monk('localhost:27017/treasure');
 
 /* GET users listing. */
 router.post('/leaderboard', function(req, res) {
-    var userdb = db.get('users');
-    var x = req.body['firstName'];
-    var y = req.body['fbid'];
-    var z = req.body['lastName'];
-    var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
-    userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	if(err) throw err;
-    	else{
-    		var user_leaderboard = userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"currLevel":-1,"answered_time":1,"registered_time":1});
-    		var users=[];
-    		for (var item in user_leaderboard) {
-   				user+={"name":firstName+" "+lastName,"level":currLevel}
-			}
-    		res.send(user);
-    	}
-    	
+	var userdb = db.get('users');
+	var x = req.body['firstName'];
+	var y = req.body['fbid'];
+	var z = req.body['lastName'];
+	console.log(x+" "+y+" "+z);
+	var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
+	console.log(md5req);
+	userdb.findOne({ "hash" : md5req }, function(err, usr){
+		if(err){
+			throw err;
+			console.log("Here we are");
+		}
+		else if(usr)
+		{
+			console.log(usr);
+			userdb.find({}, {sort: {currLevel: -1, answered_time: 1, registered_time: 1}}).then(function (users) {
+				console.log(users);
+				user_ranked=[];
+				for (var i=0; i<users.length; i++) {
+					var name = users[i]['firstName']+" "+users[i]['lastName'];
+					var level = users[i]['currLevel'];
+					var obj ={
+						'name': name,
+						'level': level
+					};
+					user_ranked.push(obj);
+				}
+				res.json(user_ranked);
+			});
+
+		}
+		else{
+			res.json({"error":"That ain't working though"})
+		}
+
 	});
 });
 
@@ -32,7 +51,7 @@ router.post('/check', function(req, res){
 	var fbid = req.body['fbid'];
 	var md5req = crypto.createHash('md5').update(firstName+fbid+lastName).digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	if (err) throw err;
+		if (err) throw err;
 
 		else if(usr){
 			res.json({"success":"Checks out"});
