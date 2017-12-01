@@ -1,6 +1,8 @@
 var express = require('express');
 var crypto = require('crypto');
 var router = express.Router();
+var monk = require('monk');
+var db = monk('localhost:27017/treasure');
 
 /* GET users listing. */
 router.post('/leaderboard', function(req, res) {
@@ -10,12 +12,16 @@ router.post('/leaderboard', function(req, res) {
     var z = req.body['lastName'];
     var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
     userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	var user_leaderboard = userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"currLevel":-1,"answered_time":1,"registered_time":1});
-    	var users=[];
-    	for (var item in user_leaderboard) {
-   			user+={"name":firstName+" "+lastName,"level":currLevel}
-		}
-    	res.send(user);
+    	if(err) throw err;
+    	else{
+    		var user_leaderboard = userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"currLevel":-1,"answered_time":1,"registered_time":1});
+    		var users=[];
+    		for (var item in user_leaderboard) {
+   				user+={"name":firstName+" "+lastName,"level":currLevel}
+			}
+    		res.send(user);
+    	}
+    	
 	});
 });
 
@@ -53,17 +59,18 @@ router.post('/', function(req, res) {
 		}
 
 		else{
+			var time_n = (new Date()).getTime();
 			userdb.insertOne({
 				"firstName":firstName,
 				"lastName":lastName,
 				"fbid":fbid,
 				"currLevel": 1,
 				"hash": hash,
-				"registered_time": (new Date()).getTime(),
-				"answered_time":Number.POSITIVE_INFINITY
+				"registered_time": time_n,
+				"answered_time":25000000000000
 			},function(err, result) {
 				assert.equal(err, null);
-				console.log("Inserted a document into the restaurants collection.");
+				console.log("Inserted a user in the db");
 				callback();
 			});
 		}
