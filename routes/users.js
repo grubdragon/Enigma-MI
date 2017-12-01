@@ -10,7 +10,12 @@ router.post('/leaderboard', function(req, res) {
     var z = req.body['lastName'];
     var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
     userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	res.json( userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"answered_time":1,"registered_time":1}) );
+    	var user_leaderboard = userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"currLevel":-1,"answered_time":1,"registered_time":1});
+    	var users=[];
+    	for (var item in user_leaderboard) {
+   			user+={"name":firstName+" "+lastName,"level":currLevel}
+		}
+    	res.send(user);
 	});
 });
 
