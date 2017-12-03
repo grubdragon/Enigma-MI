@@ -38,14 +38,6 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
 			$scope.user = response;
 		});
 	};
-	$scope.$watch(function() {
-		return Facebook.isReady();
-	}, function(newVal) {
-		if (newVal) {
-			$scope.facebookIsReady = true;
-		}
-	}
-	);
 	
 	$scope.$watch(
 		function() {
@@ -56,15 +48,15 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
 				$scope.facebookReady = true;
 		}
 		);
-	
+
 	var userIsConnected = false;
-	
+
 	Facebook.getLoginStatus(function(response) {
 		if (response.status == 'connected') {
 			userIsConnected = true;
 		}
 	});
-	
+
       /**
        * IntentLogin
        */
@@ -73,7 +65,7 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
        		$scope.login();
        	}
        };
-       
+
       /**
        * Login
        */
@@ -83,13 +75,13 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
        			$scope.logged = true;
        			$scope.me();
        		}
-       		
+
        	});
        };
-       
-       
-       
-       
+
+
+
+
    }]);
 
 
