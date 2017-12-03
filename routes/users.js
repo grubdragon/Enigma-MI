@@ -1,16 +1,46 @@
 var express = require('express');
 var crypto = require('crypto');
 var router = express.Router();
+var monk = require('monk');
+var db = monk('localhost:27017/treasure');
 
 /* GET users listing. */
 router.post('/leaderboard', function(req, res) {
-    var userdb = db.get('users');
-    var x = req.body['firstName'];
-    var y = req.body['fbid'];
-    var z = req.body['lastName'];
-    var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
-    userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	res.json( userdb.find({},{"firstName":1,"lastName":1,"currLevel":1,"answered_time":1,"registered_time":1,_id:0, "fbid":0,"hash":0}).sort({"answered_time":1,"registered_time":1}) );
+	var userdb = db.get('users');
+	var x = req.body['firstName'];
+	var y = req.body['fbid'];
+	var z = req.body['lastName'];
+	console.log(x+" "+y+" "+z);
+	var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
+	console.log(md5req);
+	userdb.findOne({ "hash" : md5req }, function(err, usr){
+		if(err){
+			throw err;
+			console.log("Here we are");
+		}
+		else if(usr)
+		{
+			console.log(usr);
+			userdb.find({}, {sort: {currLevel: -1, answered_time: 1, registered_time: 1}}).then(function (users) {
+				console.log(users);
+				user_ranked=[];
+				for (var i=0; i<users.length; i++) {
+					var name = users[i]['firstName']+" "+users[i]['lastName'];
+					var level = users[i]['currLevel'];
+					var obj ={
+						'name': name,
+						'level': level
+					};
+					user_ranked.push(obj);
+				}
+				res.json(user_ranked);
+			});
+
+		}
+		else{
+			res.json({"error":"That ain't working though"})
+		}
+
 	});
 });
 
@@ -21,7 +51,7 @@ router.post('/check', function(req, res){
 	var fbid = req.body['fbid'];
 	var md5req = crypto.createHash('md5').update(firstName+fbid+lastName).digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
-    	if (err) throw err;
+		if (err) throw err;
 
 		else if(usr){
 			res.json({"success":"Checks out"});
@@ -48,17 +78,18 @@ router.post('/', function(req, res) {
 		}
 
 		else{
+			var time_n = (new Date()).getTime();
 			userdb.insertOne({
 				"firstName":firstName,
 				"lastName":lastName,
 				"fbid":fbid,
 				"currLevel": 1,
 				"hash": hash,
-				"registered_time": (new Date()).getTime(),
-				"answered_time":Number.POSITIVE_INFINITY
+				"registered_time": time_n,
+				"answered_time":25000000000000
 			},function(err, result) {
 				assert.equal(err, null);
-				console.log("Inserted a document into the restaurants collection.");
+				console.log("Inserted a user in the db");
 				callback();
 			});
 		}
