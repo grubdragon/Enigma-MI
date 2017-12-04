@@ -53,7 +53,7 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
 
 	Facebook.getLoginStatus(function(response) {
 		if (response.status == 'connected') {
-			userIsConnec	ted = true;
+			userIsConnected = true;
 		}
 	});
 
