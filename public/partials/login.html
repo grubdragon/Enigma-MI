@@ -2,7 +2,7 @@
   <div class="login_section">
     <h2 class="login_title">Let's get you in</h2>
     <h3 class="login_cont">Log in through Facebook</h3>
-    <div class="button_con">
+    <div class="button_con" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()" data-ng-controller="facebookCtrl">
       <a href="#" class="fa fa-facebook"></a>
     </div>
   </div>

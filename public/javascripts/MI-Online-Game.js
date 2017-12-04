@@ -38,15 +38,60 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
 			$scope.user = response;
 		});
 	};
-	$scope.$watch(function() {
-		return Facebook.isReady();
-	}, function(newVal) {
-		if (newVal) {
-			$scope.facebookIsReady = true;
+	
+	$scope.$watch(
+		function() {
+			return Facebook.isReady();
+		},
+		function(newVal) {
+			if (newVal)
+				$scope.facebookReady = true;
 		}
-	}
-	);
-}]);
+		);
+
+	var userIsConnected = false;
+
+	Facebook.getLoginStatus(function(response) {
+		if (response.status == 'connected') {
+			userIsConnected = true;
+		}
+	});
+
+      /**
+       * IntentLogin
+       */
+       $scope.IntentLogin = function() {
+       	if(!userIsConnected) {
+       		$scope.login();
+       	}
+       };
+
+      /**
+       * Login
+       */
+       $scope.login = function() {
+       	Facebook.login(function(response) {
+       		if (response.status == 'connected') {
+       			$scope.logged = true;
+       			$scope.me();
+       		}
+
+       	});
+       };
+
+       $scope.logout = function() {
+       	Facebook.logout(function() {
+       		$scope.$apply(function() {
+       			$scope.user   = {};
+       			$scope.logged = false;  
+       		});
+       	});
+       }
+
+
+
+
+   }]);
 
 
 // ***** -> uncomment and define the controller function here
