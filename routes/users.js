@@ -10,8 +10,7 @@ router.post('/leaderboard', function(req, res) {
 	var x = req.body['firstName'];
 	var y = req.body['fbid'];
 	var z = req.body['lastName'];
-	console.log(x+" "+y+" "+z);
-	var md5req = crypto.createHash('md5').update(x+y+z).digest('hex');
+	var md5req = crypto.createHash('md5').update(y+"darsubhairocks").digest('hex');
 	console.log(md5req);
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
 		if(err){
