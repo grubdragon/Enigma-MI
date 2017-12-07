@@ -23,6 +23,7 @@ router.post('/leaderboard', function(req, res) {
 					var name = users[i]['firstName']+" "+users[i]['lastName'];
 					var level = users[i]['currLevel'];
 					var obj ={
+						'rank': i,
 						'name': name,
 						'level': level
 					};
