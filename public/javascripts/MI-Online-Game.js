@@ -99,12 +99,12 @@ app.controller('facebookCtrl',['$rootscope','Facebook', function ($rootscope, Fa
 
 // ***** -> uncomment and define the controller function here
 
-app.controller('leaderboard', ['$rootscope', '$resource', 'location',
+app.controller('leaderboard', ['$rootscope', '$resource', '$http',
 	function($rootscope, $resource, $http){
 		$rootscope.Leaderboared = function(){
 			var user = $.param({
-				firstname = $rootscope.firstname,
-				lastname = $rootscope.lastname,
+				firstName = $rootscope.firstName,
+				lastName = $rootscope.lastName,
 				fbid = $rootscope.fbid
 			});
 			var config = {
@@ -113,10 +113,8 @@ app.controller('leaderboard', ['$rootscope', '$resource', 'location',
                 }
             }
 
-            $http.post('/api/leaderboard', data, config)
-            .success(function (data, status, headers, config) {
-                $scope.PostDataResponse = data;
-            })
+            $http.post('/api/leaderboard', user, config)
+            
 		}
 
 		
