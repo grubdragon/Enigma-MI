@@ -118,3 +118,41 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 
 
 }]);
+
+app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+	$rootScope.Answer = function(){
+		var answer = $.param({
+			"firstName" : $rootScope.user.firstName,
+			"lastName" : $rootScope.user.lastName,
+			"fbid" : $rootScope.user.fbid,
+			"level" : $rootScope.user.level,
+			"ans" : $rootScope.user.ans
+		});
+		var config = {
+			headers : {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+			}
+		};
+		$http.post('/submit/:level', ans, config)
+
+	}
+
+	}]);
+
+app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+	$rootScope.Question = function(){
+		var user = $.param({
+			"firstName" : $rootScope.user.firstName,
+			"lastName" : $rootScope.user.lastName,
+			"fbid" : $rootScope.user.fbid
+		});
+		var config = {
+			headers : {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+			}
+		};
+
+		$http.post('/:levelReq', user, config);
+
+	}
+}]);
