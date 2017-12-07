@@ -11,22 +11,19 @@ router.post('/api/leaderboard', function(req, res) {
 	var y = req.body['fbid'];
 	var z = req.body['lastName'];
 	var md5req = crypto.createHash('md5').update(y+"darsubhairocks").digest('hex');
-	console.log(md5req);
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
 		if(err){
 			throw err;
-			console.log("Here we are");
 		}
 		else if(usr)
 		{
-			console.log(usr);
 			userdb.find({}, {sort: {currLevel: -1, answered_time: 1, registered_time: 1}}).then(function (users) {
-				console.log(users);
 				user_ranked=[];
 				for (var i=0; i<users.length; i++) {
 					var name = users[i]['firstName']+" "+users[i]['lastName'];
 					var level = users[i]['currLevel'];
 					var obj ={
+						'rank': i+1,
 						'name': name,
 						'level': level
 					};
@@ -48,7 +45,7 @@ router.post('/check', function(req, res){
 	var firstName = req.body['firstName'];
 	var lastName = req.body['lastName'];
 	var fbid = req.body['fbid'];
-	var md5req = crypto.createHash('md5').update(firstName+fbid+lastName).digest('hex');
+	var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
 		if (err) throw err;
 
@@ -67,6 +64,8 @@ router.post('/', function(req, res) {
 	var firstName = req.body['firstName'];
 	var lastName = req.body['lastName'];
 	var fbid = req.body['fbid'];
+	var email = req.body['email'];
+	var phone_no = req.body['phone_no'];
 	var hash = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 
 	userdb.findOne({ "fbid" : fbid }, function(err, usr){
@@ -83,6 +82,8 @@ router.post('/', function(req, res) {
 				"lastName":lastName,
 				"fbid":fbid,
 				"currLevel": 1,
+				"email":email,
+				"phone":phone_no,
 				"hash": hash,
 				"registered_time": time_n,
 				"answered_time":25000000000000
