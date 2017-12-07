@@ -5,6 +5,9 @@ app.config(['$routeProvider', function($routeProvider){
 	.when('/', {
 		templateUrl: 'partials/login.html'
 	})
+	.when('/leaderboard', {
+		templateUrl: 'partials/leaderboard.html'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -96,8 +99,25 @@ app.controller('facebookCtrl',['$rootscope','Facebook', function ($rootscope, Fa
 
 // ***** -> uncomment and define the controller function here
 
-//app.controller('leaderboard', ['$rootscope', '$resource', 'location',
-	//function($rootscope, $resource){
+app.controller('leaderboard', ['$rootscope', '$resource', 'location',
+	function($rootscope, $resource, $http){
+		$rootscope.Leaderboared = function(){
+			var user = $.param({
+				firstname = $rootscope.firstname,
+				lastname = $rootscope.lastname,
+				fbid = $rootscope.fbid
+			});
+			var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+
+            $http.post('/api/leaderboard', data, config)
+            .success(function (data, status, headers, config) {
+                $scope.PostDataResponse = data;
+            })
+		}
 
 		
- 	//}]);
+ 	}]);

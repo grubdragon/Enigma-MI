@@ -5,7 +5,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/treasure');
 
 /* GET users listing. */
-router.post('/leaderboard', function(req, res) {
+router.post('/api/leaderboard', function(req, res) {
 	var userdb = db.get('users');
 	var x = req.body['firstName'];
 	var y = req.body['fbid'];
