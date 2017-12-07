@@ -15,37 +15,37 @@ app.config(function(FacebookProvider) {
 	FacebookProvider.init('364525113975028');
 })
 
-app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) {
-	$scope.loginStatus = 'disconnected';
-	$scope.facebookIsReady = false;
-	$scope.user = null;
-	$scope.login = function () {
+app.controller('facebookCtrl',['$rootscope','Facebook', function ($rootscope, Facebook) {
+	$rootscope.loginStatus = 'disconnected';
+	$rootscope.facebookIsReady = false;
+	$rootscope.user = null;
+	$rootscope.login = function () {
 		Facebook.login(function(response) {
-			$scope.loginStatus = response.status;
+			$rootscope.loginStatus = response.status;
 		});
 	};
-	$scope.removeAuth = function () {
+	$rootscope.removeAuth = function () {
 		Facebook.api({
 			method: 'Auth.revokeAuthorization'
 		}, function(response) {
 			Facebook.getLoginStatus(function(response) {
-				$scope.loginStatus = response.status;
+				$rootscope.loginStatus = response.status;
 			});
 		});
 	};
-	$scope.api = function () {
+	$rootscope.api = function () {
 		Facebook.api('/me', function(response) {
-			$scope.user = response;
+			$rootscope.user = response;
 		});
 	};
 	
-	$scope.$watch(
+	$rootscope.$watch(
 		function() {
 			return Facebook.isReady();
 		},
 		function(newVal) {
 			if (newVal)
-				$scope.facebookReady = true;
+				$rootscope.facebookReady = true;
 		}
 		);
 
@@ -60,30 +60,30 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
       /**
        * IntentLogin
        */
-       $scope.IntentLogin = function() {
+       $rootscope.IntentLogin = function() {
        	if(!userIsConnected) {
-       		$scope.login();
+       		$rootscope.login();
        	}
        };
 
       /**
        * Login
        */
-       $scope.login = function() {
+       $rootscope.login = function() {
        	Facebook.login(function(response) {
        		if (response.status == 'connected') {
-       			$scope.logged = true;
-       			$scope.me();
+       			$rootscope.logged = true;
+       			$rootscope.me();
        		}
 
        	});
        };
 
-       $scope.logout = function() {
+       $rootscope.logout = function() {
        	Facebook.logout(function() {
-       		$scope.$apply(function() {
-       			$scope.user   = {};
-       			$scope.logged = false;  
+       		$rootscope.$apply(function() {
+       			$rootscope.user   = {};
+       			$rootscope.logged = false;  
        		});
        	});
        }
@@ -96,6 +96,8 @@ app.controller('facebookCtrl',['$scope','Facebook', function ($scope, Facebook) 
 
 // ***** -> uncomment and define the controller function here
 
-//app.controller('LoginCtrl', ['$scope', '$resource',
-//	function($scope, $resource){
-//	}]);
+//app.controller('leaderboard', ['$rootscope', '$resource', 'location',
+	//function($rootscope, $resource){
+
+		
+ 	//}]);
