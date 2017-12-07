@@ -67,7 +67,7 @@ router.post('/', function(req, res) {
 	var firstName = req.body['firstName'];
 	var lastName = req.body['lastName'];
 	var fbid = req.body['fbid'];
-	var hash = crypto.createHash('md5').update(firstName+fbid+lastName).digest('hex');
+	var hash = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 
 	userdb.findOne({ "fbid" : fbid }, function(err, usr){
 		if (err) throw err;
