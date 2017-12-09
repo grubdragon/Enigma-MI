@@ -169,3 +169,24 @@ body {
   top: 0; left: 0;
   height: 13%; width: 100%;
 }
+
+
+/* Leaderboard */
+.#lb_box {
+  background: 
+}
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+.bg_lb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
