@@ -90,7 +90,7 @@ router.post('/:levelReq', function(req, res) {
 
         questiondb.findOne({ level: levelReq }, function(err, q){
             if (err) throw err;
-            res.json({"question":q.questions, "img-src":q.img-src});
+            res.json({"question":q.questions, "img-src":q.img-src, "clue-1":q.clue1, "clue-2":q.clue2});
         });
 
     });

@@ -50,11 +50,11 @@ router.post('/check', function(req, res){
 		if (err) throw err;
 
 		else if(usr){
-			res.json({"success":"Checks out"});
+			res.sendStatus(200);
 		}
 
 		else{
-			res.json({"error":"No such user found"});
+			res.sendStatus(404);
 		}
 	});
 });

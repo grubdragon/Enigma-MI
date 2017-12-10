@@ -6,7 +6,8 @@ app.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/login.html'
 	})
 	.when('/leaderboard', {
-		templateUrl: 'partials/leaderboard.html'
+		templateUrl: 'partials/leaderboard.html',
+		controller: 'leaderboardCtrl'
 	})
 	.otherwise({
 		redirectTo: '/'
@@ -95,7 +96,9 @@ app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Fa
 
 
    }]);
-
+//app.factory('board', function($resource){
+//	var data
+//})
 
 // ***** -> uncomment and define the controller function here
 
@@ -112,10 +115,24 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 			}
 		};
 
-		$http.post('/api/leaderboard', user, config);
+		$http.post('/check', user, config)
+			.success(function(response, user, config){
+				$http.post('/api/leaderboard', user, config).then(
+					function(response, user, config){
+						$rootScope.user_db =response
+					})
+			});
+			/*.success(function(user, response, config, $rootScope){
+				var board = $resource('/api/leaderboard', {},
+					update: {
+						method: 'POST',
+						transformRequest: function (user){
+							return angular.toJson(user);
+						}
+					});
+			});*/
 
 	}
-
 
 }]);
 
@@ -133,7 +150,7 @@ app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($root
 				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
 			}
 		};
-		$http.post('/submit/:level', ans, config)
+		$http.post('/submit/:level', answer, config)
 
 	}
 
@@ -156,3 +173,25 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($ro
 
 	}
 }]);
+
+/*app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$location', '$routeParams',
+    function($rootScope, $resource, $location, $routeParams){
+    	var user = $.param({
+			"firstName" : $rootScope.user.firstName,
+			"lastName" : $rootScope.user.lastName,
+			"fbid" : $rootScope.user.fbid
+		});	
+        var Leaderboard = $resource('/api/leaderboard', {user.firstName:"@firstName"}, {user.lastName:"@lastName"}, {user.fbid:"@fbid"} {
+            update: { method: 'POST' }
+        });
+
+        Videos.get({ id: $routeParams.id }, function(video){
+            $rootScope.video = video;
+        });
+
+        $rootScope.save = function(){
+            Videos.update($rootScope.video, function(){
+                $location.path('/');
+            });
+        }
+    }]);*/
