@@ -156,20 +156,38 @@ app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($root
 
 	}]);
 
-app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
-	$rootScope.Question = function(){
-		var user = $.param({
+app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $routeParams){
+	var user = $.param({
 			"firstName" : $rootScope.user.firstName,
 			"lastName" : $rootScope.user.lastName,
 			"fbid" : $rootScope.user.fbid
 		});
-		var config = {
-			headers : {
-				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-			}
-		};
+	var config = {
+		headers : {
+			'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+		}
+	};
 
-		$http.post('/:levelReq', user, config);
+	$rootScope.Question = function(user){
+		
+
+		$http.post('/check', user, config)
+			.success(function($resource, user){
+				var level = $rootScope.user.level;
+				var Questions = $resource('/:levelreq', { level:'@levelreq'
+					update:{
+						method:'POST'
+						transformRequest:function(user){
+							return angular.toJson(user);
+						}
+					}
+				})
+				Questions.get({level: $routeParams.level})
+			});
+
+	}
+
+	$rootScope.Answer = function(user){
 
 	}
 }]);
