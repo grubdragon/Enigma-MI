@@ -102,114 +102,81 @@ app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Fa
 
 // ***** -> uncomment and define the controller function here
 
-app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $location){
 	$rootScope.Leaderboard = function(){
-		var user = $.param({
+		var user = {
 			"firstName" : $rootScope.user.firstName,
 			"lastName" : $rootScope.user.lastName,
 			"fbid" : $rootScope.user.fbid
-		});
-		var config = {
-			headers : {
-				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-			}
 		};
+		var Check = $rootScope('/check');
+		Check.save(user, function(res){
+			var board = $resource('/api/leaderboard');
+			board.post(user, function(res){
+				$resource.user_db = res;
+			}, function(err){
 
-		$http.post('/check', user, config)
-			.success(function(response, user, config){
-				$http.post('/api/leaderboard', user, config).then(
-					function(response, user, config){
-						$rootScope.user_db =response
-					})
 			});
-			/*.success(function(user, response, config, $rootScope){
-				var board = $resource('/api/leaderboard', {},
-					update: {
-						method: 'POST',
-						transformRequest: function (user){
-							return angular.toJson(user);
-						}
-					});
-			});*/
+		},
+		function(err){
+			$location.path('/');
+		});
+		
+
+		
+			
 
 	}
 
 }]);
 
 app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+	
+
+	}]);
+
+app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $routeParam, $location){
+	var user = {
+			"firstName" : $rootScope.user.firstName,
+			"lastName" : $rootScope.user.lastName,
+			"fbid" : $rootScope.user.fbid
+		};
+	var level = $rootScope.user.level;
+
+	$rootScope.Question = function(user){
+		
+
+		var Check = $rootScope('/check');
+		Check.save(user, function(res){
+			
+			var Questions = $resource('/:levelreq', { level:'@levelreq'},{
+				update:{ method:'POST'}
+			});
+			Questions.post(level, function(res){
+				$rootScope.question = res;
+			}, function(err){})
+		}, function(err){
+			$location.path('/')
+		});
+	
 	$rootScope.Answer = function(){
-		var answer = $.param({
+		var answer = {
 			"firstName" : $rootScope.user.firstName,
 			"lastName" : $rootScope.user.lastName,
 			"fbid" : $rootScope.user.fbid,
 			"level" : $rootScope.user.level,
 			"ans" : $rootScope.user.ans
-		});
-		var config = {
-			headers : {
-				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-			}
 		};
-		$http.post('/submit/:level', answer, config)
+		var Check = $rootScope('/check');
+		Check.save(user, function(res){
+			var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
+			Answer.post(answer, function(res){
+				$rootScope.ans = res; 
+			})
+		},function(err){})
 
 	}
-
-	}]);
-
-app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $routeParams){
-	var user = $.param({
-			"firstName" : $rootScope.user.firstName,
-			"lastName" : $rootScope.user.lastName,
-			"fbid" : $rootScope.user.fbid
-		});
-	var config = {
-		headers : {
-			'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-		}
-	};
-
-	$rootScope.Question = function(user){
-		
-
-		$http.post('/check', user, config)
-			.success(function($resource, user){
-				var level = $rootScope.user.level;
-				var Questions = $resource('/:levelreq', { level:'@levelreq'
-					update:{
-						method:'POST'
-						transformRequest:function(user){
-							return angular.toJson(user);
-						}
-					}
-				})
-				Questions.get({level: $routeParams.level})
-			});
-
-	}
-
-	$rootScope.Answer = function(user){
 
 	}
 }]);
 
-/*app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$location', '$routeParams',
-    function($rootScope, $resource, $location, $routeParams){
-    	var user = $.param({
-			"firstName" : $rootScope.user.firstName,
-			"lastName" : $rootScope.user.lastName,
-			"fbid" : $rootScope.user.fbid
-		});	
-        var Leaderboard = $resource('/api/leaderboard', {user.firstName:"@firstName"}, {user.lastName:"@lastName"}, {user.fbid:"@fbid"} {
-            update: { method: 'POST' }
-        });
-
-        Videos.get({ id: $routeParams.id }, function(video){
-            $rootScope.video = video;
-        });
-
-        $rootScope.save = function(){
-            Videos.update($rootScope.video, function(){
-                $location.path('/');
-            });
-        }
-    }]);*/
