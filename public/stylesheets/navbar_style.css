@@ -1,7 +1,8 @@
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav {
 
     color: #777;
     line-height: 61px;
+
 
 }
 
@@ -9,5 +10,5 @@
 	padding:1em;
 }
 .header-list{
-	font-size: 20px;
+	font-size: 25px;
 }

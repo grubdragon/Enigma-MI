@@ -10,6 +10,9 @@
   
 </div>-->
 
+  <link rel='stylesheet', href='/stylesheets/style.css'>
+  <link rel='stylesheet', href='/stylesheets/navbar_style.css'>
+  
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -21,18 +24,18 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-left" href="#">
+		      <a class="navbar-left">
 		        <img class="logo" src="../images/clues_box/image10.png" >
 		      </a>
     	</div>	
-    <div class="collapse navbar-collapse" id="mynavbar">
+    <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
 	    	
 		    <!-- <div class="navbar-header">
 		      <a class="navbar-left" href="#"><img class="logo" src="../images/clues_box/image10.png"></a>
 		    </div>  -->
 	      <li class="header-list"><a href="/home">HOME</a></li>
-	      <li class="header-list"><a href="/clues_box">CLUES</a></li>
+	      <li class="header-list"><a href="/clues_box" ng-controller="questionCtrl" ng-click="Question()">CLUES</a></li>
 	      <li class="header-list"><a href="/storyline" ng-controller="questionCtrl" ng-click="Question()">STORYLINE</a></li>
 
 	      <li class="header-list"><a href="/leadreboard" ng-controller="leadreboardCtrl" ng-click="Leaderboard()">LEADERBOARD</a></li>
@@ -41,4 +44,3 @@
 	</div>
   </div>
 </nav>
-
