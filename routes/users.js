@@ -42,8 +42,7 @@ router.post('/api/leaderboard', function(req, res) {
 
 router.post('/check', function(req, res){
 	var userdb = db.get('users');
-	var firstName = req.body['firstName'];
-	var lastName = req.body['lastName'];
+	var name = req.body['name'];
 	var fbid = req.body['fbid'];
 	var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){

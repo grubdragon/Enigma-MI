@@ -3,7 +3,8 @@ var app = angular.module('MI-Online-Game', ['ngResource', 'ngRoute','facebook'])
 app.config(['$routeProvider', function($routeProvider){
 	$routeProvider
 	.when('/', {
-		templateUrl: 'partials/login.html'
+		templateUrl: 'partials/login.html',
+		controller: 'facebookCtrl'
 	})
 	.when('/leaderboard', {
 		templateUrl: 'partials/leaderboard.html',
@@ -20,55 +21,51 @@ app.config(function(FacebookProvider) {
 })
 
 app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Facebook) {
-	$rootScope.loginStatus = 'disconnected';
-	$rootScope.facebookIsReady = false;
+	// Define user empty data :/
 	$rootScope.user = {};
-	$rootScope.login = function () {
-		Facebook.login(function(response) {
-			$rootScope.loginStatus = response.status;
-		});
-	};
-	$rootScope.removeAuth = function () {
-		Facebook.api({
-			method: 'Auth.revokeAuthorization'
-		}, function(response) {
-			Facebook.getLoginStatus(function(response) {
-				$rootScope.loginStatus = response.status;
-			});
-		});
-	};
-	$rootScope.api = function () {
-		Facebook.api('/me', function(response) {
-			$rootScope.user = response;
-		});
-	};
-	
-	$rootScope.$watch(
-		function() {
-			return Facebook.isReady();
-		},
-		function(newVal) {
-			if (newVal)
-				$rootScope.facebookReady = true;
-		}
-		);
 
-	var userIsConnected = false;
+      // Defining user logged status
+      $rootScope.logged = false;
+      
+      // And some fancy flags to display messages upon user status change
+      $rootScope.byebye = false;
+      $rootScope.salutation = false;
+      
+      /**
+       * Watch for Facebook to be ready.
+       * There's also the event that could be used
+       */
+       $rootScope.$watch(
+       	function() {
+       		return Facebook.isReady();
+       	},
+       	function(newVal) {
+       		if (newVal)
+       			$rootScope.facebookReady = true;
+       	}
+       	);
 
-	Facebook.getLoginStatus(function(response) {
-		if (response.status == 'connected') {
-			userIsConnected = true;
-		}
-	});
+       var userIsConnected = false;
+
+       Facebook.getLoginStatus(function(response) {
+       	if (response.status == 'connected') {
+       		userIsConnected = true;
+       	}
+       });
 
       /**
        * IntentLogin
        */
        $rootScope.IntentLogin = function() {
+       	console.log("IntentLogin called");
        	if(!userIsConnected) {
+       		console.log("IntentLogin body");
        		$rootScope.login();
        	}
-       };
+       	else{
+                  $rootScope.me();
+            }
+      };
 
       /**
        * Login
@@ -82,7 +79,38 @@ app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Fa
 
        	});
        };
+       
+       /**
+        * me 
+        */
+        $rootScope.me = function() {
+        	Facebook.api('/me', function(response) {
+            /**
+             * Using $rootScope.$apply since this happens outside angular framework.
+             */
+             $rootScope.$apply(function() {
+                  $rootScope.user = response;
+            });
+             var data = response;
+             $http.post("/api/users/check", data)
+             .success(function (data, status, headers, config) {
+                  $scope.go = function ( path ) {
+                        $location.path( path );
+                  };
+            })
+             .error(function (data, status, header, config) {
+             });
 
+
+             
+             console.log("me: "+JSON.stringify(response));
+
+       });
+        };
+
+      /**
+       * Logout
+       */
        $rootScope.logout = function() {
        	Facebook.logout(function() {
        		$rootScope.$apply(function() {
@@ -92,10 +120,35 @@ app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Fa
        	});
        }
 
+      /**
+       * Taking approach of Events :D
+       */
+       $rootScope.$on('Facebook:statusChange', function(ev, data) {
+       	console.log('Status: ', data);
+       	if (data.status == 'connected') {
+       		$rootScope.$apply(function() {
+       			$rootScope.salutation = true;
+       			$rootScope.byebye     = false;    
+       		});
+       	} else {
+       		$rootScope.$apply(function() {
+       			$rootScope.salutation = false;
+       			$rootScope.byebye     = true;
+
+            // Dismiss byebye message after two seconds
+            $timeout(function() {
+            	$rootScope.byebye = false;
+            }, 2000)
+      });
+       	}
+
+
+       });
 
 
 
-   }]);
+
+ }]);
 //app.factory('board', function($resource){
 //	var data
 //})
@@ -124,7 +177,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 		
 
 		
-			
+
 
 	}
 
@@ -133,14 +186,14 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
 	
 
-	}]);
+}]);
 
 app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $routeParam, $location){
 	var user = {
-			"firstName" : $rootScope.user.firstName,
-			"lastName" : $rootScope.user.lastName,
-			"fbid" : $rootScope.user.fbid
-		};
+		"firstName" : $rootScope.user.firstName,
+		"lastName" : $rootScope.user.lastName,
+		"fbid" : $rootScope.user.fbid
+	};
 	var level = $rootScope.user.level;
 
 	$rootScope.Question = function(user){
@@ -158,24 +211,24 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($ro
 		}, function(err){
 			$location.path('/')
 		});
-	
-	$rootScope.Answer = function(){
-		var answer = {
-			"firstName" : $rootScope.user.firstName,
-			"lastName" : $rootScope.user.lastName,
-			"fbid" : $rootScope.user.fbid,
-			"level" : $rootScope.user.level,
-			"ans" : $rootScope.user.ans
-		};
-		var Check = $rootScope('/check');
-		Check.save(user, function(res){
-			var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
-			Answer.post(answer, function(res){
-				$rootScope.ans = res; 
-			})
-		},function(err){})
 
-	}
+		$rootScope.Answer = function(){
+			var answer = {
+				"firstName" : $rootScope.user.firstName,
+				"lastName" : $rootScope.user.lastName,
+				"fbid" : $rootScope.user.fbid,
+				"level" : $rootScope.user.level,
+				"ans" : $rootScope.user.ans
+			};
+			var Check = $rootScope('/check');
+			Check.save(user, function(res){
+				var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
+				Answer.post(answer, function(res){
+					$rootScope.ans = res; 
+				})
+			},function(err){})
+
+		}
 
 	}
 }]);
