@@ -10,6 +10,14 @@ app.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/leaderboard.html',
 		controller: 'leaderboardCtrl'
 	})
+	.when('/register', {
+		templateUrl: 'partials/register.html',
+		controller: 'regCtrl'
+	})
+	.when('/game', {
+		templateUrl: 'partials/game.html',
+		controller: 'gameCtrl'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -20,7 +28,7 @@ app.config(function(FacebookProvider) {
 	FacebookProvider.init('364525113975028');
 })
 
-app.controller('facebookCtrl',['$rootScope','$http','Facebook', function ($rootScope, $http, Facebook) {
+app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook', function ($rootScope, $resource, $location, Facebook) {
 	// Define user empty data :/
 	$rootScope.user = {};
 
@@ -92,7 +100,31 @@ app.controller('facebookCtrl',['$rootScope','$http','Facebook', function ($rootS
                   $rootScope.user = response;
             });
              var data = response;
-             console.log(data);
+             console.log("data log kiya hai:"+data);
+             
+             
+             var Check = $resource('/api/users/check');
+			Check.save($rootScope.user, function(res){
+			console.log("res log kiya: "+JSON.stringify(res));
+			if(res['error']){
+				$location.path('/register')
+			}			
+			else{
+				
+			}
+			/*
+			var Questions = $resource('/:levelreq', { level:'@levelreq'},{
+				update:{ method:'
+				POST'}
+			});
+			Questions.post(level, function(res){
+				$rootScope.question = res;
+			}, function(err){})
+			*/
+		}, function(err){
+			$location.path('/');
+		});
+             /*
              $http.post("/api/users/check", data)
              .success(function (data, status, headers, config) {
                   $scope.go = function ( path ) {
@@ -101,6 +133,7 @@ app.controller('facebookCtrl',['$rootScope','$http','Facebook', function ($rootS
             })
              .error(function (data, status, header, config) {
              });
+             */
 
 
              
@@ -185,6 +218,11 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 
 app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
 	
+
+}]);
+
+app.controller('regCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+      
 
 }]);
 

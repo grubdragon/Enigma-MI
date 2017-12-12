@@ -11,12 +11,11 @@
 }
 
 div.login_image1{
-		width: 100%;
-	}
-	div.login_image2{
-		width: 100%;
-	}
-	div.login_image{
-		width: 100%;
-	}
+	width: 100%;
+}
+div.login_image2{
+	width: 100%;
+}
+div.login_image{
+	width: 100%;
 }
