@@ -2,20 +2,38 @@
 	#parent_login{
 		padding-top: 100px;
 	}
-}
-
-@media only screen and (max-width: 1024px) {
-	#parent_login{
-		padding-top: 50px;
+	#reg_wrapper{
+		padding-top: 100px;
 	}
 }
 
 div.login_image1{
 	width: 100%;
 }
+
 div.login_image2{
 	width: 100%;
 }
+
 div.login_image{
 	width: 100%;
+}
+
+#reg_wrapper{
+	padding-top: 50px;
+}
+
+#parent_login{
+	padding-top: 50px;
+}
+
+##reg_button{
+	padding: 3% 15%;
+}
+
+@media only screen and (max-width: 1024px) {
+	#reg_button{
+		padding: 0;
+		padding-top: 20px;
+	}
 }

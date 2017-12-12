@@ -1,41 +1,45 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-3 col-xs-2"></div>
-		<div class="form-group col-md-6 col-xs-8">
-			<form>
-				<div class="form-group">
-					<label for="firstName">First Name</label>
-					<input type="text" class="form-control input-lg" id="firstName" placeholder="John" ng-model="firstName">
-				</div>
-				<div class="form-group">
-					<label for="lastName">Last Name</label>
-					<input type="text" class="form-control input-lg" id="lastName" placeholder="Doe" ng-model="lastName">
-				</div>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" class="form-control input-lg" id="username" placeholder="john.doe" ng-model="username">
-				</div>
-				<div class="form-group">
-					<label for="email">Email address</label>
-					<input type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="john.doe@examplesite.com" ng-model="email">
-					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-				</div>
-				<div class="form-group">
-					<label for="phoneNo">Phone No.</label>
-					<input type="phoneNo" class="form-control input-lg" id="phone" aria-describedby="numberHelp" placeholder="1234567890" ng-model="phone">
-					<small id="emailHelp" class="form-text text-muted">We'll never share your phone no. with anyone else.</small>
-				</div>
-				<!--
-				<div class="form-check">
-					<label class="form-check-label">
-						<input type="checkbox" class="form-check-input">
-						Check me out
-					</label>
-				</div>
-				-->
-				<input type="image" src="../images/register.png" alt="Submit" style="width: 100%;">
-			</form>
+	<div id="reg_wrapper">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 col-xs-12">
+				<img src="../images/934.png" class="login_image2 img-responsive center-block"></img>
+			​</div>
+			<div class="col-md-4"></div>
 		</div>
-		<div class="col-md-3 col-xs-2"></div>
+		<div  class="row">
+			<div class="col-md-3 col-xs-1"></div>
+			<div class="form-group col-md-6 col-xs-10">
+				<form>
+					<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control input-lg" id="firstName" placeholder="John" ng-model="firstName">
+					</div>
+					<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control input-lg" id="lastName" placeholder="Doe" ng-model="lastName">
+					</div>
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input type="text" class="form-control input-lg" id="username" placeholder="john.doe" ng-model="username">
+					</div>
+					<div class="form-group">
+						<label for="email">Email address</label>
+						<input type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="john.doe@examplesite.com" ng-model="email">
+						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+					</div>
+					<div class="form-group">
+						<label for="phoneNo">Phone No.</label>
+						<input type="phoneNo" class="form-control input-lg" id="phone" aria-describedby="numberHelp" placeholder="1234567890" ng-model="phone">
+						<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your phone no. with anyone else.</small> -->
+					</div>
+					<div class="form-group">
+						<input id="reg_button" type="image" src="../images/register.png" alt="Submit" style="width: 100%" ng-click="submit()">
+					</div>
+
+				</form>
+			</div>
+			<div class="col-md-3 col-xs-1></div>
+		</div>
 	</div>
 </div>

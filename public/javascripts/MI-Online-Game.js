@@ -104,14 +104,14 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
              
              
              var Check = $resource('/api/users/check');
-			Check.save($rootScope.user, function(res){
-			console.log("res log kiya: "+JSON.stringify(res));
-			if(res['error']){
-				$location.path('/register')
-			}			
-			else{
-				
-			}
+             Check.save($rootScope.user, function(res){
+               console.log("res log kiya: "+JSON.stringify(res));
+               if(res['error']){
+                $location.path('/register')
+          }			
+          else{
+
+          }
 			/*
 			var Questions = $resource('/:levelreq', { level:'@levelreq'},{
 				update:{ method:'
@@ -201,7 +201,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 			board.post(user, function(res){
 				$rootScope.ranklist = res;
 			}, function(err){
-			
+
 			});
 		},
 		function(err){
@@ -217,16 +217,24 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 }]);
 
 app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
-	
 
 }]);
 
-app.controller('regCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
-      
+app.controller('regCtrl', ['$rootScope', '$resource','$location','Facebook', function($rootScope, $resource, $location, Facebook){
+      var userIsConnected = false;
+      console.log(userIsConnected);
+      Facebook.getLoginStatus(function(response) {
+            if (response.status != 'connected') {
+                  $location.path('/');
+            }
+            else{
+                  
+            }
+      });
 
 }]);
 
-app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $routeParam, $location){
+app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', function($rootScope, $resource, $http, $routeParam, $location){
 	var user = {
 		"firstName" : $rootScope.user.firstName,
 		"lastName" : $rootScope.user.lastName,
@@ -247,7 +255,7 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($ro
 				$rootScope.question = res;
 			}, function(err){})
 		}, function(err){
-			$location.path('/')
+			$location.path('/');
 		});
 	}
 
