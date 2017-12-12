@@ -159,17 +159,16 @@ app.controller('facebookCtrl',['$rootScope','$http','Facebook', function ($rootS
 app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http, $location){
 	$rootScope.Leaderboard = function(){
 		var user = {
-			"firstName" : $rootScope.user.firstName,
-			"lastName" : $rootScope.user.lastName,
+			"name" : $rootScope.user.name,
 			"fbid" : $rootScope.user.fbid
 		};
-		var Check = $rootScope('/check');
+		var Check = $rootScope('/api/users/check');
 		Check.save(user, function(res){
-			var board = $resource('/api/leaderboard');
+			var board = $resource('/api/users/leaderboard');
 			board.post(user, function(res){
-				$resource.user_db = res;
+				$rootScope.ranklist = res;
 			}, function(err){
-
+			
 			});
 		},
 		function(err){

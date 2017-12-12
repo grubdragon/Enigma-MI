@@ -5,7 +5,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/treasure');
 
 /* GET users listing. */
-router.post('/api/leaderboard', function(req, res) {
+router.post('/leaderboard', function(req, res) {
 	var userdb = db.get('users');
 	var x = req.body['firstName'];
 	var y = req.body['fbid'];
@@ -42,18 +42,19 @@ router.post('/api/leaderboard', function(req, res) {
 
 router.post('/check', function(req, res){
 	var userdb = db.get('users');
-	var name = req.body['name'];
 	var fbid = req.body['fbid'];
 	var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
 		if (err) throw err;
 
 		else if(usr){
-			res.sendStatus(200);
+			res.json({'success':'User found in database'});
+			res.status(200);
 		}
 
 		else{
-			res.sendStatus(404);
+			res.json({'error':'No such user found'});
+			res.status(200);
 		}
 	});
 });
