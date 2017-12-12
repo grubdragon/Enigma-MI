@@ -20,7 +20,7 @@ app.config(function(FacebookProvider) {
 	FacebookProvider.init('364525113975028');
 })
 
-app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Facebook) {
+app.controller('facebookCtrl',['$rootScope','$http','Facebook', function ($rootScope, $http, Facebook) {
 	// Define user empty data :/
 	$rootScope.user = {};
 
@@ -92,6 +92,7 @@ app.controller('facebookCtrl',['$rootScope','Facebook', function ($rootScope, Fa
                   $rootScope.user = response;
             });
              var data = response;
+             console.log(data);
              $http.post("/api/users/check", data)
              .success(function (data, status, headers, config) {
                   $scope.go = function ( path ) {
@@ -211,25 +212,24 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http', function($ro
 		}, function(err){
 			$location.path('/')
 		});
-
-		$rootScope.Answer = function(){
-			var answer = {
-				"firstName" : $rootScope.user.firstName,
-				"lastName" : $rootScope.user.lastName,
-				"fbid" : $rootScope.user.fbid,
-				"level" : $rootScope.user.level,
-				"ans" : $rootScope.user.ans
-			};
-			var Check = $rootScope('/check');
-			Check.save(user, function(res){
-				var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
-				Answer.post(answer, function(res){
-					$rootScope.ans = res; 
-				})
-			},function(err){})
-
-		}
-
 	}
+
+      $rootScope.Answer = function(){
+            var answer = {
+                  "firstName" : $rootScope.user.firstName,
+                  "lastName" : $rootScope.user.lastName,
+                  "fbid" : $rootScope.user.fbid,
+                  "level" : $rootScope.user.level,
+                  "ans" : $rootScope.user.ans
+            };
+            var Check = $rootScope('/check');
+            Check.save(user, function(res){
+                  var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
+                  Answer.post(answer, function(res){
+                        $rootScope.ans = res; 
+                  })
+            },function(err){});
+
+      }
 }]);
 
