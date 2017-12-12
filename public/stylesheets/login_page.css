@@ -1,23 +1,10 @@
-@media only screen and (max-width: 500px) {
+@media only screen and (min-width: 1024px) {
 	#parent_login{
-		width: auto;
-		height: 90vh;
-		margin: 0 auto;
-		position: relative;
+		padding-top: 100px;
 	}
-	div.login_image1{
-		width: 100%;
-	}
-	div.login_image2{
-		width: 100%;
-	}
-	div.login_image{
-		width: 100%;
-	}
-
 }
 
-@media only screen and (orientation: potrait) {
+@media only screen and (max-width: 1024px) {
 	#parent_login{
 		padding-top: 50px;
 	}
