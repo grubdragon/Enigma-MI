@@ -48,7 +48,7 @@ router.post('/check', function(req, res){
 		if (err) throw err;
 
 		else if(usr){
-			res.json({'success':'User found in database'});
+			res.json(usr);
 			res.status(200);
 		}
 

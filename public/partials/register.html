@@ -1,12 +1,41 @@
 <div class="container">
-	<div class="title">Sign up</div>
-	<div class="fbverify">Allow us on facebook</div>
-	<div class="button_con">
-		<a href="#" class="fa fa-facebook"></a>
-	</div>
-	<div class="username_form">
-		<label for="username" class="user">Username:</label>
-		<input type="username" class="form-control" id="email" placeholder="This will appear on the leaderboard" name="username">
-        <button type="submit" class="btn btn-default">Done!</button> 
+	<div class="row">
+		<div class="col-md-3 col-xs-2"></div>
+		<div class="form-group col-md-6 col-xs-8">
+			<form>
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" class="form-control input-lg" id="firstName" placeholder="John" ng-model="firstName">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" class="form-control input-lg" id="lastName" placeholder="Doe" ng-model="lastName">
+				</div>
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" class="form-control input-lg" id="username" placeholder="john.doe" ng-model="username">
+				</div>
+				<div class="form-group">
+					<label for="email">Email address</label>
+					<input type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="john.doe@examplesite.com" ng-model="email">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				</div>
+				<div class="form-group">
+					<label for="phoneNo">Phone No.</label>
+					<input type="phoneNo" class="form-control input-lg" id="phone" aria-describedby="numberHelp" placeholder="1234567890" ng-model="phone">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your phone no. with anyone else.</small>
+				</div>
+				<!--
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="checkbox" class="form-check-input">
+						Check me out
+					</label>
+				</div>
+				-->
+				<input type="image" src="../images/register.png" alt="Submit" style="width: 100%;">
+			</form>
+		</div>
+		<div class="col-md-3 col-xs-2"></div>
 	</div>
 </div>
