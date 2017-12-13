@@ -107,11 +107,11 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
              Check.save($rootScope.user, function(res){
                console.log("res log kiya: "+JSON.stringify(res));
                if(res['error']){
-                $location.path('/register')
-          }			
-          else{
+                    $location.path('/register')
+              }			
+              else{
 
-          }
+              }
 			/*
 			var Questions = $resource('/:levelreq', { level:'@levelreq'},{
 				update:{ method:'
@@ -123,22 +123,8 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
 			*/
 		}, function(err){
 			$location.path('/');
-		});
-             /*
-             $http.post("/api/users/check", data)
-             .success(function (data, status, headers, config) {
-                  $scope.go = function ( path ) {
-                        $location.path( path );
-                  };
-            })
-             .error(function (data, status, header, config) {
-             });
-             */
-
-
-             
+		});             
              console.log("me: "+JSON.stringify(response));
-
        });
         };
 
@@ -207,11 +193,6 @@ app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$http', function(
 		function(err){
 			$location.path('/');
 		});
-		
-
-		
-
-
 	}
 
 }]);
