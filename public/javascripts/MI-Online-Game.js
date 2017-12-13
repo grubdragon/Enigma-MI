@@ -209,8 +209,18 @@ app.controller('regCtrl', ['$rootScope', '$resource','$location','Facebook', fun
                   $location.path('/');
             }
             else{
+            	var user = {
+            		"firstName":$rootScope.firstName,
+            		"lastName":$rootScope.lastName,
+            		"phone_no":$rootScope.phone,
+            		"fbid":$rootScope.fbid,
+            		"email":$rootScope.email
+            	};
+            	var Register=$resource(/api/users);
+            	Register.save(user, function(res), function(err));
                   
             }
+            	
       });
 
 }]);
