@@ -252,3 +252,20 @@ img {
   text-align: center;
   vertical-align: middle;
 }
+
+
+#htctrl{
+  height: 600px
+}
+
+
+@media only screen and (max-width: 600px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 350px;
+    }
+}
+
+#scroll{
+  overflow: auto;
+}
