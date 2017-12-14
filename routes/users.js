@@ -92,7 +92,7 @@ router.post('/', function(req, res) {
 			},function(err, result) {
 				assert.equal(err, null);
 				console.log("Inserted a user in the db");
-				res.json({"success","Inserted a user in the db"});
+				res.json({"success":"Inserted a user in the db"});
 			});
 		}
 	});
