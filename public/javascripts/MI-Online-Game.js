@@ -16,7 +16,7 @@ app.config(['$routeProvider', function($routeProvider){
 	})
 	.when('/game', {
 		templateUrl: 'partials/game.html',
-		controller: 'gameCtrl'
+		controller: 'answerCtrl'
 	})
 	.otherwise({
 		redirectTo: '/'
@@ -176,23 +176,37 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
       $location.path('/');
     }
     else{
-     $rootScope.Leaderboard = function(){
-      var send_user = {
+     var send_user = {
        "fbid" : $rootScope.user.id
      };
-     var Check = $rootScope('/api/users/check');
+
+     var Check = $resource('/api/users/check');
      Check.save(send_user, function(res){
-       var board = $resource('/api/users/leaderboard');
-       board.post(user, function(res){
-        $scope.ranklist = res;
-      }, function(err){});
-     },
-     function(err){
+       console.log("res log kiya: "+JSON.stringify(res));
+       if(res.error){
+        console.log("error hua");
+        $location.path('/register')
+      }     
+      else{
+        var board = $resource('/api/users/leaderboard');
+        board.save(send_user, function(res){
+         if(res.error){
+          console.log("error hua");
+          $location.path('/register')
+        }     
+        else{
+          $scope.ranklist = res;
+        }
+      }, function(err){
        $location.path('/');
      });
-   };                  
- }
-});
+
+      }
+    }, function(err){
+     $location.path('/');
+   });
+   }
+ });
 
 }]);
 
@@ -217,12 +231,14 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
       }
       else{
         console.log("register called");
+        console.log($rootScope.user.id);
+        var fbid=$rootScope.user.id;
         var send_user = {
           "firstName": $scope.firstName,
           "lastName": $scope.lastName,
           "username": $scope.username,
           "phone_no": $scope.phone,
-          "fbid": $rootScope.user.id,
+          "fbid": fbid,
           "email": $scope.email
         };
 
@@ -252,8 +268,7 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', 
 var level = $rootScope.user.level;
 
 $rootScope.Question = function(user){
-
-
+  
   var Check = $rootScope('/check');
   Check.save(user, function(res){
 

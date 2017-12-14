@@ -8,9 +8,9 @@ var assert = require('assert');
 /* GET users listing. */
 router.post('/leaderboard', function(req, res) {
 	var userdb = db.get('users');
-	var y = req.body['fbid'];
-	console.log(y);
-	var md5req = crypto.createHash('md5').update(y+"darsubhairocks").digest('hex');
+	var fbid = req.body['fbid'];
+	console.log(fbid);
+	var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 	userdb.findOne({ "hash" : md5req }, function(err, usr){
 		if(err){
 			throw err;
@@ -83,6 +83,7 @@ router.post('/', function(req, res) {
 			userdb.insert({
 				"firstName":firstName,
 				"lastName":lastName,
+				"username": username,
 				"fbid":fbid,
 				"currLevel": 1,
 				"email":email,
