@@ -16,7 +16,7 @@ app.config(['$routeProvider', function($routeProvider){
 	})
 	.when('/game', {
 		templateUrl: 'partials/game.html',
-		controller: 'answerCtrl'
+		controller: 'questionCtrl'
 	})
 	.otherwise({
 		redirectTo: '/'
@@ -185,24 +185,28 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
        console.log("res log kiya: "+JSON.stringify(res));
        if(res.error){
         console.log("error hua");
-        $location.path('/register')
+        $location.path('/register');
       }     
       else{
-        var board = $resource('/api/users/leaderboard');
-        board.save(send_user, function(res){
+        var send_user = {
+         "fbid" : $rootScope.user.id
+       };
+       var board = $resource('/api/users/leaderboard');
+       board.save(send_user, function(res){
          if(res.error){
           console.log("error hua");
-          $location.path('/register')
+          $location.path('/register');
         }     
         else{
+          console.log(res);
           $scope.ranklist = res;
         }
       }, function(err){
        $location.path('/');
      });
 
-      }
-    }, function(err){
+     }
+   }, function(err){
      $location.path('/');
    });
    }
@@ -268,7 +272,7 @@ app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', 
 var level = $rootScope.user.level;
 
 $rootScope.Question = function(user){
-  
+
   var Check = $rootScope('/check');
   Check.save(user, function(res){
 
