@@ -229,12 +229,6 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
                   }
                   else{
                         console.log("register called");
-                        console.log("firstName: " + $scope.firstName);
-                        console.log("lastName: " + $scope.lastName);
-                        console.log("username: " + $scope.username);
-                        console.log("phone_no: " + $scope.phone);
-                        console.log("fbid: " + $rootScope.user.id);
-                        console.log("email: " + $scope.email);
                         var send_user = {
                               "firstName": $scope.firstName,
                               "lastName": $scope.lastName,
@@ -246,8 +240,8 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
 
                         var Register=$resource('/api/users/');
                         Register.save(send_user, function(res){
-                              if(){
-                                    $location.path('/');      
+                              if(res.success){
+                                    $location.path('/game');      
                               }
                               else{
                                     $location.path('/');      
