@@ -71,8 +71,8 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
        		$rootScope.login();
        	}
        	else{
-                  $rootScope.me();
-            }
+          $rootScope.me();
+        }
       };
 
       /**
@@ -97,35 +97,29 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
              * Using $rootScope.$apply since this happens outside angular framework.
              */
              $rootScope.$apply(function() {
-                  $rootScope.user = response;
+              $rootScope.user = response;
             });
-             var data = response;
-             console.log("data log kiya hai:"+data);
-             
-             
+
+             var send_user = {
+               "fbid" : $rootScope.user.id
+             };
+
              var Check = $resource('/api/users/check');
-             Check.save($rootScope.user, function(res){
+             Check.save(send_user, function(res){
                console.log("res log kiya: "+JSON.stringify(res));
-               if(res['error']){
+               if(res.error){
+                console.log("error hua");
                 $location.path('/register')
-          }			
-          else{
-            $location.path('/');
-      }
-			/*
-			var Questions = $resource('/:levelreq', { level:'@levelreq'},{
-				update:{ method:'
-				POST'}
-			});
-			Questions.post(level, function(res){
-				$rootScope.question = res;
-			}, function(err){})
-			*/
-		}, function(err){
-			$location.path('/');
-		});             
+              }			
+              else{
+                console.log("mein yaha aaya tha");
+                $location.path('/leaderboard');
+              }
+            }, function(err){
+             $location.path('/');
+           });             
              console.log("me: "+JSON.stringify(response));
-       });
+           });
         };
 
       /**
@@ -159,7 +153,7 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
             $timeout(function() {
             	$rootScope.byebye = false;
             }, 2000)
-      });
+          });
        	}
 
 
@@ -168,43 +162,37 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
 
 
 
- }]);
+     }]);
 //app.factory('board', function($resource){
 //	var data
 //})
 
 // ***** -> uncomment and define the controller function here
 
-app.controller('leaderboardCtrl', ['$rootScope', '$resource', '$location', 'Facebook', function($rootScope, $resource, $location, Facebook){
+app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$location', 'Facebook', function($rootScope, $scope, $resource, $location, Facebook){
 	
-      Facebook.getLoginStatus(function(response) {
-            if (response.status != 'connected' || !($rootScope.user) ) {
-                  $location.path('/');
-            }
-            else{
-                  
-            }
-      });
-
-      $rootScope.Leaderboard = function(){
-		var user = {
-			"name" : $rootScope.user.username,
-			"fbid" : $rootScope.user.id
-		};
-		var Check = $rootScope('/api/users/check');
-		Check.save(user, function(res){
-			var board = $resource('/api/users/leaderboard');
-			board.post(user, function(res){
-				$rootScope.ranklist = res;
-			}, function(err){
-
-			});
-		},
-		function(err){
-			$location.path('/');
-		});
-	}
-
+  Facebook.getLoginStatus(function(response) {
+    if (response.status != 'connected' || !($rootScope.user) ) {
+      $location.path('/');
+    }
+    else{
+     $rootScope.Leaderboard = function(){
+      var send_user = {
+       "fbid" : $rootScope.user.id
+     };
+     var Check = $rootScope('/api/users/check');
+     Check.save(send_user, function(res){
+       var board = $resource('/api/users/leaderboard');
+       board.post(user, function(res){
+        $scope.ranklist = res;
+      }, function(err){});
+     },
+     function(err){
+       $location.path('/');
+     });
+   };                  
+ }
+});
 
 }]);
 
@@ -213,88 +201,88 @@ app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($root
 }]);
 
 app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Facebook', function($rootScope, $scope, $resource, $location, Facebook){
-      Facebook.getLoginStatus(function(response) {
-            if (response.status != 'connected' || !($rootScope.user) ) {
-                  $location.path('/');
-            }
-            else{
+  Facebook.getLoginStatus(function(response) {
+    if (response.status != 'connected' || !($rootScope.user) ) {
+      $location.path('/');
+    }
+    else{
 
-            }
-      });
-      $rootScope.register = function() {
+    }
+  });
+  $rootScope.register = function() {
 
-            Facebook.getLoginStatus(function(response) {
-                  if (response.status != 'connected' || !($rootScope.user) ) {
-                        $location.path('/');
-                  }
-                  else{
-                        console.log("register called");
-                        var send_user = {
-                              "firstName": $scope.firstName,
-                              "lastName": $scope.lastName,
-                              "username": $scope.username,
-                              "phone_no": $scope.phone,
-                              "fbid": $rootScope.user.id,
-                              "email": $scope.email
-                        };
+    Facebook.getLoginStatus(function(response) {
+      if (response.status != 'connected' || !($rootScope.user) ) {
+        $location.path('/');
+      }
+      else{
+        console.log("register called");
+        var send_user = {
+          "firstName": $scope.firstName,
+          "lastName": $scope.lastName,
+          "username": $scope.username,
+          "phone_no": $scope.phone,
+          "fbid": $rootScope.user.id,
+          "email": $scope.email
+        };
 
-                        var Register=$resource('/api/users/');
-                        Register.save(send_user, function(res){
-                              if(res.success){
-                                    $location.path('/game');      
-                              }
-                              else{
-                                    $location.path('/');      
-                              }                              
-                              
-                        }, function(err){
+        var Register=$resource('/api/users/');
+        Register.save(send_user, function(res){
+          if(res.success){
+            $location.path('/game');      
+          }
+          else{
+            $location.path('/');      
+          }                              
 
-                        });
-                  }
-            });
-      };
+        }, function(err){
+
+        });
+      }
+    });
+  };
 }]);
 
 app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', function($rootScope, $resource, $http, $routeParam, $location){
-     var user = {
-          "firstName" : $rootScope.user.firstName,
-          "lastName" : $rootScope.user.lastName,
-          "fbid" : $rootScope.user.fbid
-    };
-    var level = $rootScope.user.level;
+ var user = {
+  "firstName" : $rootScope.user.firstName,
+  "lastName" : $rootScope.user.lastName,
+  "fbid" : $rootScope.user.fbid
+};
+var level = $rootScope.user.level;
 
-    $rootScope.Question = function(user){
+$rootScope.Question = function(user){
 
 
-          var Check = $rootScope('/check');
-          Check.save(user, function(res){
+  var Check = $rootScope('/check');
+  Check.save(user, function(res){
 
-               var Questions = $resource('/:levelreq', { level:'@levelreq'},{
-                    update:{ method:'POST'}
-              });
-               Questions.post(level, function(res){
-                    $rootScope.question = res;
-              }, function(err){})
-         }, function(err){
-               $location.path('/');
-         });
-    }
+   var Questions = $resource('/:levelreq', { level:'@levelreq'},{
+    update:{ method:'POST'}
+  });
+   Questions.post(level, function(res){
+    $rootScope.question = res;
+  }, function(err){})
+ }, function(err){
+   $location.path('/');
+ });
+}
 
-    $rootScope.Answer = function(){
-      var answer = {
-            "firstName" : $rootScope.user.firstName,
-            "lastName" : $rootScope.user.lastName,
-            "fbid" : $rootScope.user.fbid,
-            "level" : $rootScope.user.level,
-            "ans" : $rootScope.user.ans
-      };
-      var Check = $rootScope('/check');
-      Check.save(user, function(res){
-            var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
-            Answer.post(answer, function(res){
-                  $rootScope.ans = res; 
-            })
-      },function(err){});
+$rootScope.Answer = function(){
+  var answer = {
+    "firstName" : $rootScope.user.firstName,
+    "lastName" : $rootScope.user.lastName,
+    "fbid" : $rootScope.user.fbid,
+    "level" : $rootScope.user.level,
+    "ans" : $rootScope.user.ans
+  };
+  var Check = $rootScope('/check');
+  Check.save(user, function(res){
+    var Answer = $resource('submit/:level', { level:'@level'}, {update:{method:'POST'}});
+    Answer.post(answer, function(res){
+      $rootScope.ans = res; 
+    })
+  },function(err){});
 
 }
 }]);
