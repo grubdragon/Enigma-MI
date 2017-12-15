@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var router = express.Router();
 var monk = require('monk');
 var db = monk('localhost:27017/treasure');
+var assert = require('assert');
 
 /* GET users listing. */
 router.post('/leaderboard', function(req, res) {
@@ -31,7 +32,6 @@ router.post('/leaderboard', function(req, res) {
 				}
 				res.json(user_ranked);
 			});
-
 		}
 		else{
 			res.json({"error":"That ain't working though"})
@@ -61,8 +61,10 @@ router.post('/check', function(req, res){
 
 router.post('/', function(req, res) {
 	var userdb = db.get('users');
+	console.log(req);
 	var firstName = req.body['firstName'];
 	var lastName = req.body['lastName'];
+	var username = req.body['username'];
 	var fbid = req.body['fbid'];
 	var email = req.body['email'];
 	var phone_no = req.body['phone_no'];
@@ -77,7 +79,7 @@ router.post('/', function(req, res) {
 
 		else{
 			var time_n = (new Date()).getTime();
-			userdb.insertOne({
+			userdb.insert({
 				"firstName":firstName,
 				"lastName":lastName,
 				"fbid":fbid,
@@ -90,7 +92,7 @@ router.post('/', function(req, res) {
 			},function(err, result) {
 				assert.equal(err, null);
 				console.log("Inserted a user in the db");
-				callback();
+				res.json({"success":"Inserted a user in the db"});
 			});
 		}
 	});
