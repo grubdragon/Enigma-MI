@@ -12,7 +12,7 @@ body, html {
   height: 100%; width: 100%;
   overflow: hidden;
 }
-
+/*
 .container {
   overflow: hidden;
   position: absolute;
@@ -20,6 +20,7 @@ body, html {
   bottom: 0; left: 0; right: 0;
   margin: auto;
 }
+*/
 
 
 .box {
@@ -101,11 +102,12 @@ body, html {
 
 
 /* Navbar */
-
+/*
 .navbar {
   position: absolute;
   top: 0; left: 0;
 }
+*/
 .logo {
   display: inline-block;
   position: relative;
@@ -124,11 +126,13 @@ body, html {
   height: 25%;
   padding: 2.5em 2em 2.5em 1em;
 }
+/*
 .navbar_cont {
   position: absolute;
   top: 0; left: 0;
   height: 13%; width: 100%;
 }
+*/
 
 
 /* Leaderboard */ 
@@ -138,8 +142,12 @@ body, html {
   border-bottom: 2px solid #8F908C;
   font-weight: bold;
 }
-.container-fluid {
+.leaderboard-container-fluid {
   height: 100%;
+}
+.leaderboard-container{
+  padding-top:3%;
+  padding-bottom:3%;
 }
 .sep_line {
   height: 1em;
@@ -148,7 +156,6 @@ body, html {
 .lb_box {
   background: #E0E1DB;
   width: 90%;
-  height: 85%;
   margin-right: auto;
   margin-left: auto;
   margin-top: 3.3em;
@@ -157,6 +164,10 @@ body, html {
   -moz-box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
   font-family: mreaves;
   font-size: 1.15em;
+  padding-bottom:3%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .lb_box div {
   z-index: 2;
@@ -193,4 +204,10 @@ body, html {
   right: 0;
   left: 0;
   margin: auto;
+}
+
+.leaderboard_list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

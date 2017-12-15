@@ -44,5 +44,5 @@ html(ng-app='MI-Online-Game')
                   li.header-list
                     a(href='/rules') RULES
 
-    div(class='bg')
+    div(class='bg' ng-class='{bgimage:!$root.show_nav}')
       block content

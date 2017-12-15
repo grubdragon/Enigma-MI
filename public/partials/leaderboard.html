@@ -14,29 +14,52 @@
 </div>
 -->
 
-<div class="container-fluid" style="background: #f3f3f1; overflow-y: auto;z-index: -100;">
+<div class="container-fluid leaderboard-container-fluid" style="background: #f3f3f1; overflow-y: auto;z-index: -100;">
   <div class="lb_box">
-    <ul>
+  <div class="container leaderboard-container">
+    <ul class="leaderboard_list">
+    <li>
+       <div class="top_bar">  
+        <div class="row">
+          <div class="col-1 col-sm-1"></div>
+          <div class="col-2 col-sm-1">Rank</div>
+          <div class="col-6 col-sm-8">Username</div>
+          <div class="col-2 col-sm-1">Level</div>
+          <div class="col-1 col-sm-1"></div>
+        </div>
+      </div>
+      <!--
+      <div class="row">
+        <div class="sep_line"></div>
+      </div>
+      -->
+    </li>
      <li ng-repeat='obj in ranklist.endpoint'>
        <div class="top_bar">
          
         <div class="row">
-          <div class="col-2 col-sm-1 offset-sm-1">{{obj.rank}}</div>
-          <div class="col-7 col-sm-8">{{obj.username}}</div>
-          <div class="col-2">{{obj.level}}</div>
+          <div class="col-1 col-sm-1"></div>
+          <div class="col-2 col-sm-1">{{obj.rank}}</div>
+          <div class="col-6 col-sm-8">{{obj.username}}</div>
+          <div class="col-2 col-sm-1">{{obj.level}}</div>
+          <div class="col-1 col-sm-1"></div>
         </div>
         
-      </div>	
+      </div>
+      <!--
       <div class="row">
         <div class="sep_line"></div>
       </div>
+      -->
     </li>
   </ul>
+  
     <!--<div class="row">
       <div class="col-2 col-sm-1 offset-sm-1">1</div>
       <div class="col-7 col-sm-8">Atharva</div>
       <div class="col-2">100</div>
     </div>-->
+    <!--
     <div class="row">
       <div class="col-7 col-sm-7 offset-2"> 
       	<div class="points_bar"><div></div></div>
@@ -47,5 +70,7 @@
     <div class="downarrow">
       <img class="darrow" src="../images/leaderboard/image3.png">
     </div>
+    -->
   </div>  
+</div>
 </div>

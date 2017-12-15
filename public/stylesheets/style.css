@@ -8,16 +8,19 @@ body, html {
   height: 100%;
   width: 100%; }
 
-.bg {
+.bgimage{
   /* The image used */
   background-image: url("../images/bg.png");
-  /* Full height */
-  height: 100%;
-  width: auto;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bg {
+  /* Full height */
+  height: 100%;
+  width: auto;
   z-index: -2000;  }
 
 .navbar.navbar-default{
