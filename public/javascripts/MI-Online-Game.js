@@ -30,6 +30,7 @@ app.config(function(FacebookProvider) {
 
 app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook', function ($rootScope, $resource, $location, Facebook) {
 	// Define user empty data :/
+  $rootScope.show_nav=false;
 	$rootScope.user = {};
 
       // Defining user logged status
@@ -107,7 +108,7 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
              var Check = $resource('/api/users/check');
              Check.save(send_user, function(res){
                console.log("res log kiya: "+JSON.stringify(res));
-               if(res.error){
+               if(res.error && res.serverGenerated){
                 console.log("error hua");
                 $location.path('/register')
               }			
@@ -170,7 +171,7 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
 // ***** -> uncomment and define the controller function here
 
 app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$location', 'Facebook', function($rootScope, $scope, $resource, $location, Facebook){
-	
+	$rootScope.show_nav=true;
   Facebook.getLoginStatus(function(response) {
     if (response.status != 'connected' || !($rootScope.user) ) {
       $location.path('/');
@@ -183,7 +184,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
      var Check = $resource('/api/users/check');
      Check.save(send_user, function(res){
        console.log("res log kiya: "+JSON.stringify(res));
-       if(res.error){
+       if(res.error && res.serverGenerated){
         console.log("error hua");
         $location.path('/');
       }     
@@ -193,7 +194,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
        };
        var board = $resource('/api/users/leaderboard');
        board.save(send_user, function(res){
-         if(res.error){
+         if(res.error && res.serverGenerated){
           console.log("error hua");
           $location.path('/');
         }     
@@ -228,7 +229,7 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
     }
   });
   $rootScope.register = function() {
-
+    $rootScope.show_nav=false;
     Facebook.getLoginStatus(function(response) {
       if (response.status != 'connected' || !($rootScope.user) ) {
         $location.path('/');
@@ -264,6 +265,7 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
 }]);
 
 app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', function($rootScope, $resource, $http, $routeParam, $location){
+ $rootScope.show_nav=true;
  var user = {
   "firstName" : $rootScope.user.firstName,
   "lastName" : $rootScope.user.lastName,

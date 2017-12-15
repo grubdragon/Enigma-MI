@@ -11,8 +11,8 @@ html(ng-app='MI-Online-Game')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-resource.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(href='https://fonts.googleapis.com/css?family=Exo+2', rel='stylesheet')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -20,5 +20,29 @@ html(ng-app='MI-Online-Game')
     script(src='/javascripts/MI-Online-Game.js')
 
   body
+    div(ng-show='$root.show_nav')
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        div(class='container-fluid')
+            div(class='navbar-header')
+                button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#mynavbar', aria-expanded='false')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+                a.navbar-left
+                  img.logo(src='../images/clues_box/image10.png')
+              .collapse.navbar-collapse
+                ul.nav.navbar-nav.navbar-right
+                  li.header-list
+                    a(href='/home') HOME
+                  li.header-list
+                    a(href='/clues_box') CLUES
+                  li.header-list
+                    a(href='/storyline') STORYLINE
+                  li.header-list
+                    a(href='/leaderboard') LEADERBOARD
+                  li.header-list
+                    a(href='/rules') RULES
+
     div(class='bg')
       block content

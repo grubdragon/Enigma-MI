@@ -21,7 +21,7 @@ router.post('/leaderboard', function(req, res) {
 			userdb.find({}, {sort: {currLevel: -1, answered_time: 1, registered_time: 1}}).then(function (users) {
 				user_ranked=[];
 				for (var i=0; i<users.length; i++) {
-					var name = users[i]['username'];
+					var username = users[i]['username'];
 					var level = users[i]['currLevel'];
 					var obj ={
 						'rank': i+1,
@@ -30,11 +30,11 @@ router.post('/leaderboard', function(req, res) {
 					};
 					user_ranked.push(obj);
 				}
-				res.json(user_ranked);
+				res.json({ "endpoint" : user_ranked });
 			});
 		}
 		else{
-			res.json({"error":"That ain't working though"})
+			res.json({"error":"That ain't working though","serverGenerated":1})
 		}
 
 	});
@@ -54,7 +54,7 @@ router.post('/check', function(req, res){
 		}
 
 		else{
-			res.json({'error':'No such user found'});
+			res.json({'error':'No such user found','serverGenerated':1});
 			res.status(200);
 		}
 	});
@@ -75,7 +75,7 @@ router.post('/', function(req, res) {
 		if (err) throw err;
 
 		else if(usr){
-			res.json({"error":"The user you're trying to signup already seems to exist."});
+			res.json({"error":"The user you're trying to signup already seems to exist.",'serverGenerated':1});
 		}
 
 		else{
@@ -94,7 +94,7 @@ router.post('/', function(req, res) {
 			},function(err, result) {
 				assert.equal(err, null);
 				console.log("Inserted a user in the db");
-				res.json({"success":"Inserted a user in the db"});
+				res.json({"success":"Inserted a user in the db",'serverGenerated':1});
 			});
 		}
 	});
