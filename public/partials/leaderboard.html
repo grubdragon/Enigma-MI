@@ -14,23 +14,24 @@
 </div>
 -->
 
-<div class="container-fluid" style="background: #f3f3f1; overflow-y: auto;">
+<div class="container-fluid" style="background: #f3f3f1; overflow-y: auto;z-index: -100;">
   <div class="lb_box">
-  	<li ng-repeat='obj in board'>
-  	<div class="top_bar">
-  	
-		<div class="row">
-		  <div class="col-2 col-sm-1 offset-sm-1">{{obj.rank}}</div>
-		  <div class="col-7 col-sm-8">{{obj.name}}</div>
-	      <div class="col-2">{{obj.currLevel}}</div>
-		</div>
-	
-	</div>	
-	<div class="row">
-		<div class="sep_line"></div>
-	</div>
-	</li>
-
+    <ul>
+     <li ng-repeat='obj in ranklist'>
+       <div class="top_bar">
+         
+        <div class="row">
+          <div class="col-2 col-sm-1 offset-sm-1">{{obj.rank}}</div>
+          <div class="col-7 col-sm-8">{{obj.username}}</div>
+          <div class="col-2">{{obj.level}}</div>
+        </div>
+        
+      </div>	
+      <div class="row">
+        <div class="sep_line"></div>
+      </div>
+    </li>
+  </ul>
     <!--<div class="row">
       <div class="col-2 col-sm-1 offset-sm-1">1</div>
       <div class="col-7 col-sm-8">Atharva</div>

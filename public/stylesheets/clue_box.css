@@ -208,10 +208,6 @@ body, html {
   height: 235px;
 }
 
-img {
-    position: absolute;
-    z-index: -1;
-}
 
 #z-0{
   z-index: 0;
@@ -304,4 +300,6 @@ img {
 
 #scroll{
   overflow: auto;
+
+  z-index: 3;
 }

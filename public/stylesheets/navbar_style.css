@@ -1,0 +1,24 @@
+.navbar-inverse .navbar-nav {
+
+    color: #777;
+    line-height: 61px;
+
+
+}
+
+.navbar-header{
+	padding:1em;
+}
+.header-list{
+	font-size: 25px;
+}
+
+.logo {
+  display: inline-block;
+  position: relative;
+  height: 55%;
+
+}
+body, html {
+  height: 100%;
+  width: 100%; }
