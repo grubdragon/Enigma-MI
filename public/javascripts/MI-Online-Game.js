@@ -185,7 +185,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
        console.log("res log kiya: "+JSON.stringify(res));
        if(res.error){
         console.log("error hua");
-        $location.path('/register');
+        $location.path('/');
       }     
       else{
         var send_user = {
@@ -195,7 +195,7 @@ app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$locati
        board.save(send_user, function(res){
          if(res.error){
           console.log("error hua");
-          $location.path('/register');
+          $location.path('/');
         }     
         else{
           console.log(res);
