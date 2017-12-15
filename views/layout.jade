@@ -16,7 +16,34 @@ html(ng-app='MI-Online-Game')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
     link(href="https://fonts.googleapis.com/css?family=Exo+2", rel="stylesheet")
-
+    link(rel='stylesheet', href='/stylesheets/navbar_style.css')
   body
     div(class='bg')
+    div(ng-show = show_nav)
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#mynavbar', aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-left
+              img.logo(src='../images/clues_box/image10.png')
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+              //
+                <div class="navbar-header">
+                <a class="navbar-left" href="#"><img class="logo" src="../images/clues_box/image10.png"></a>
+                </div>
+              li.header-list
+                a(href='/home') HOME
+              li.header-list
+                a(href='/clues_box', ng-controller='questionCtrl', ng-click='Question()') CLUES
+              li.header-list
+                a(href='/storyline', ng-controller='questionCtrl', ng-click='Question()') STORYLINE
+              li.header-list
+                a(href='/leadreboard', ng-controller='leadreboardCtrl', ng-click='Leaderboard()') LEADERBOARD
+              li.header-list
+                a(href='/rules') RULES
       block content

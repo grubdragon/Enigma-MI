@@ -12,3 +12,10 @@
 .header-list{
 	font-size: 25px;
 }
+
+.logo {
+  display: inline-block;
+  position: relative;
+  height: 55%;
+
+}
