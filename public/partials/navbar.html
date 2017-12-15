@@ -1,15 +1,5 @@
-<html>
-<head>
-	<link rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>:
-    <link rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link href='https://fonts.googleapis.com/css?family=Exo+2', rel='stylesheet'>
-    <meta name='viewport', content='width=device-width, initial-scale=1.0'>
+<!--<link rel="stylesheet" href="../stylesheets/style.css">
 
-
-
-	<link rel="stylesheet" href="../stylesheets/style.css">
-
-<!--
 <div class="container">
   <img class="navbar" src="../images/clues_box/image9.png">
   <div class="navbar_cont">
@@ -18,36 +8,40 @@
     <img class="storyline" src="../images/clues_box/image12.png">
   </div>
   
-</div>
--->
-</head>
-<body>
+</div>-->
 
-<nav class="navbar navbar-default">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
+  <link rel='stylesheet', href='/stylesheets/style.css'>
+  <link rel='stylesheet', href='/stylesheets/navbar_style.css'>
+  
+<div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-header" href="#">
-          <img alt="Brand" src="../images/934-white.png">
-      </a>
-    </div>
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-left">
+		        <img class="logo" src="../images/clues_box/image10.png" >
+		      </a>
+    	</div>	
+    <div class="collapse navbar-collapse">
+	    <ul class="nav navbar-nav navbar-right">
+	    	
+		    <!-- <div class="navbar-header">
+		      <a class="navbar-left" href="#"><img class="logo" src="../images/clues_box/image10.png"></a>
+		    </div>  -->
+	      <li class="header-list"><a href="/home">HOME</a></li>
+	      <li class="header-list"><a href="/clues_box" ng-controller="questionCtrl" ng-click="Question()">CLUES</a></li>
+	      <li class="header-list"><a href="/storyline" ng-controller="questionCtrl" ng-click="Question()">STORYLINE</a></li>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+	      <li class="header-list"><a href="/leadreboard" ng-controller="leadreboardCtrl" ng-click="Leaderboard()">LEADERBOARD</a></li>
+	      <li class="header-list"><a href="/rules">RULES</a></li>
+	    </ul>
+	</div>
+  </div>
 </nav>
-
-
-</body>
-</html>
+</div>
