@@ -5,13 +5,13 @@ var monk = require('monk');
 var db = monk('localhost:27017/treasure');
 
 /* GET home page. */
-router.post('/submit/:level', function(req, res) {
+router.post('/submit', function(req, res) {
     var userdb = db.get('users');
     var questiondb = db.get('questions');
     var firstName = req.body['firstName'];
     var lastName = req.body['lastName'];
     var fbid = req.body['fbid'];
-    var level = req.params['level'];
+    var level = req.body['level'];
     var usr_ans = req.body['ans'];
     var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 
@@ -31,9 +31,9 @@ router.post('/submit/:level', function(req, res) {
                     res.json({"error":"You've already answered this question!","serverGenerated":1});
                 }
                 else{
-                    questiondb.findOne({ "level": parseInt(level) }, function(err, q){
+                    questiondb.findOne({ "level": parseInt(level) }, function(err, que){
                         if (err) throw err;
-                        else if(usr_ans == q.ans){
+                        else if(usr_ans == que.ans){
                             userdb.updateOne({"hash": md5req, "firstName":firstName, "lastName":lastName}, 
                             {
                                 "answered_time": (new Date()).getTime(),
@@ -72,14 +72,13 @@ router.put('/:id', function(req, res){
 });
 */
 
-router.post('/:levelReq', function(req, res) {
+router.post('/levelFetch', function(req, res) {
     var userdb = db.get('users');
     var questiondb = db.get('questions');
-    var levelReq = req.params['levelReq'];
     var firstName = req.body['firstName'];
     var lastName = req.body['lastName'];
     var fbid = req.body['fbid'];
-    var level = req.params['level'];
+    var levelReq = req.body['level'];
     var md5req = crypto.createHash('md5').update(fbid+"darsubhairocks").digest('hex');
 
     userdb.findOne({ hash : md5req, "firstName":firstName, "lastName":lastName }, function(err, usr){
@@ -89,16 +88,15 @@ router.post('/:levelReq', function(req, res) {
                 levelReq = usr.currLevel
             }
 
-            questiondb.findOne({ level: levelReq }, function(err, q){
+            questiondb.findOne({ level: levelReq }, function(err, que){
                 if (err) throw err;
-                res.json({"question":q.questions, "img-src":q.img-src, "clue-1":q.clue1, "clue-2":q.clue2});
+                res.json({"clue":que.clue, "storyline":que.storyline, "level":que.level});
             });   
         }
         else{
             res.json({"error":"Request wasn't human. What're you upto mate?","serverGenerated":1});
         }
-    });
-    
+    });  
 });
 
 module.exports = router;

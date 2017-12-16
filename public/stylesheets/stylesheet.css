@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'mreaves';
   src: url('../fonts/Mrs Eaves OT Roman.otf') format('woff'),
-       url('../fonts/Mrs Eaves OT Roman.otf') format('truetype');
+  url('../fonts/Mrs Eaves OT Roman.otf') format('truetype');
 }
 
 /* Clues box */
@@ -16,115 +16,115 @@ body, html {
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-a {
-  color: #00B7FF; }
+  a {
+    color: #00B7FF; }
 
-.greykaro{
-  background: #f3f3f1;
-}
+    .greykaro{
+      background: #f3f3f1;
+    }
 
-div.login_image1{
-  width: 100%;
-}
+    div.login_image1{
+      width: 100%;
+    }
 
-div.login_image2{
-  width: 100%;
-}
+    div.login_image2{
+      width: 100%;
+    }
 
-div.login_image{
-  width: 100%;
-}
+    div.login_image{
+      width: 100%;
+    }
 
-#reg_wrapper{
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
+    #reg_wrapper{
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
 
-#parent_login{
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
+    #parent_login{
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
 
-#reg_button{
-  padding: 3% 10%;
-  width: 100%;
-}
+    #reg_button{
+      padding: 3% 10%;
+      width: 100%;
+    }
 
-@media only screen and (max-width: 1024px) {
-  #parent_login{
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-  #reg_wrapper{
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-}
+    @media only screen and (max-width: 1024px) {
+      #parent_login{
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+      #reg_wrapper{
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+    }
 
-@media only screen and (max-width: 1024px) {
-  #reg_button{
-    padding: 0;
-    padding-top: 20px;
-  }
-}
+    @media only screen and (max-width: 1024px) {
+      #reg_button{
+        padding: 0;
+        padding-top: 20px;
+      }
+    }
 
-.navbar-inverse .navbar-nav {
-    color: #777;
-}
+    .navbar-inverse .navbar-nav {
+      color: #777;
+    }
 
-.navbar-header{
-  padding:1em;
-}
-.header-list{
-  font-size: 25px;
-}
+    .navbar-header{
+      padding:1em;
+    }
+    .header-list{
+      font-size: 25px;
+    }
 
-.bgimage{
-  background: url("../images/bg.png") no-repeat center center fixed;
-  background-size: cover;
-}
+    .bgimage{
+      background: url("../images/bg.png") no-repeat center center fixed;
+      background-size: cover;
+    }
 
-.bg {
-  width: auto;
-  z-index: -2000;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;  }
+    .bg {
+      width: auto;
+      z-index: -2000;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;  }
 
-.navbar.navbar-default{
-  background-color: rgb(0,0,0); 
-}
+      .navbar.navbar-default{
+        background-color: rgb(0,0,0); 
+      }
 
-.navbar-inverse .navbar-nav>li>a{
-line-height: 35px;
-}
+      .navbar-inverse .navbar-nav>li>a{
+        line-height: 35px;
+      }
 
-div.inline-block {
-  display: inline-block;
-  text-align: center;}
+      div.inline-block {
+        display: inline-block;
+        text-align: center;}
 
-div.image1 {
-  content: url("../images/Logo@5x.png"); }
+        div.image1 {
+          content: url("../images/Logo@5x.png"); }
 
-div.image2 {
-  content: url("../images/934.png");
-  padding: 3%; }
+          div.image2 {
+            content: url("../images/934.png");
+            padding: 3%; }
 
-div.image3 {
-  content: url("../images/signin.png"); }
+            div.image3 {
+              content: url("../images/signin.png"); }
 
-.pad100 {
-  padding: 100px;
-  text-align: center; }
+              .pad100 {
+                padding: 100px;
+                text-align: center; }
 
-.scale-down {
-  -ms-transform: scale(0.9, 0.9);
-  /* IE 9 */
-  -webkit-transform: scale(0.9, 0.9);
-  /* Safari */
-  transform: scale(0.9, 0.9); }
+                .scale-down {
+                  -ms-transform: scale(0.9, 0.9);
+                  /* IE 9 */
+                  -webkit-transform: scale(0.9, 0.9);
+                  /* Safari */
+                  transform: scale(0.9, 0.9); }
 
 /*
 .container {
@@ -300,22 +300,22 @@ div.image3 {
   z-index: 0;
   max-width: 100%;
   position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; 
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; 
 }
 
 #z-1{
   z-index: 1;
   max-width: 99%; 
   position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 
@@ -323,11 +323,11 @@ div.image3 {
   z-index: 1;
   max-width: 40%; 
   position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 #rest{
   width: 100%
@@ -343,47 +343,47 @@ div.image3 {
 }
 
 @media only screen and (max-width: 1024px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 410px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 410px;
+  }
 }
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 320px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 320px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 300px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 300px;
+  }
 }
 @media only screen and (max-width: 480px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 200px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 200px;
+  }
 }
 @media only screen and (max-width: 414px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 175px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 175px;
+  }
 }
 @media only screen and (max-width: 375px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 160px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 160px;
+  }
 }
 @media only screen and (max-width: 320px) {
-    /* For mobile phones: */
-    #htctrl {
-        height: 140px;
-    }
+  /* For mobile phones: */
+  #htctrl {
+    height: 140px;
+  }
 }
 
 #scroll{
@@ -405,4 +405,21 @@ div.image3 {
   font-size: 2.5vw;
   padding-top: 1vw;
   text-align:center;
+}
+
+.tab-pane p{
+  padding: 1.5em; 
+}
+
+.tab-pane img{
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (max-width: 320px) {
+  /* For mobile phones: */
+  .tab-pane p{
+    padding: 1em;
+    font-size: 0.8em; 
+  }
 }

@@ -8,12 +8,10 @@
 
     <div class="tab-content">
       <div id="home" class="tab-pane fade" ng-show="isSet(1)"  ng-class="{ active: isSet(1),in: isSet(1) }">
-        <h3>HOME</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p ng-bind-html="currentQuestion.clue"></p>
       </div>
       <div id="menu1" class="tab-pane fade" ng-show="isSet(2)"  ng-class="{ active: isSet(2),in: isSet(2) }" >
-        <h3>Menu 1</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p ng-bind-html="currentQuestion.storyline"></p>
       </div>
     </div>
   </div>
