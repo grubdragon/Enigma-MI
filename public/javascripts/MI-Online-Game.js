@@ -18,6 +18,10 @@ app.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/game.html',
 		controller: 'questionCtrl'
 	})
+  .when('/rules', {
+    templateUrl: 'partials/rules.html',
+    controller: 'rulesCtrl'
+  })
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -28,7 +32,7 @@ app.config(function(FacebookProvider) {
 	FacebookProvider.init('364525113975028');
 })
 
-app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook', function ($rootScope, $resource, $location, Facebook) {
+app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook', '$timeout', function ($rootScope, $resource, $location, Facebook, $timeout) {
 	// Define user empty data :/
   $rootScope.show_nav=false;
 	$rootScope.user = {};
@@ -111,10 +115,10 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
                if(res.error && res.serverGenerated){
                 console.log("error hua");
                 $location.path('/register')
-              }			
+              }     
               else{
                 console.log("mein yaha aaya tha");
-                $location.path('/leaderboard');
+                $location.path('/game');
               }
             }, function(err){
              $location.path('/');
@@ -173,49 +177,54 @@ app.controller('facebookCtrl',['$rootScope', '$resource','$location','Facebook',
 app.controller('leaderboardCtrl', ['$rootScope', '$scope', '$resource', '$location', 'Facebook', function($rootScope, $scope, $resource, $location, Facebook){
 	$rootScope.show_nav=true;
   Facebook.getLoginStatus(function(response) {
-    if (response.status != 'connected' || !($rootScope.user) ) {
+    if (response.status != 'connected') {
       $location.path('/');
     }
     else{
-     var send_user = {
-       "fbid" : $rootScope.user.id
-     };
+      Facebook.api('/me', function(response) {
+            /**
+             * Using $rootScope.$apply since this happens outside angular framework.
+             */
+             $rootScope.$apply(function() {
+              $rootScope.user = response;
+            });
 
-     var Check = $resource('/api/users/check');
-     Check.save(send_user, function(res){
-       console.log("res log kiya: "+JSON.stringify(res));
-       if(res.error && res.serverGenerated){
-        console.log("error hua");
-        $location.path('/');
-      }     
-      else{
-        var send_user = {
-         "fbid" : $rootScope.user.id
-       };
-       var board = $resource('/api/users/leaderboard');
-       board.save(send_user, function(res){
-         if(res.error && res.serverGenerated){
-          console.log("error hua");
-          $location.path('/');
-        }     
-        else{
-          console.log(res);
-          $scope.ranklist = res;
-        }
-      }, function(err){
-       $location.path('/');
-     });
+             var send_user = {
+               "fbid" : $rootScope.user.id
+             };
 
-     }
-   }, function(err){
-     $location.path('/');
-   });
-   }
- });
-
-}]);
-
-app.controller('answerCtrl', ['$rootScope', '$resource', '$http', function($rootScope, $resource, $http){
+             var Check = $resource('/api/users/check');
+             Check.save(send_user, function(res){
+               console.log("res log kiya: "+JSON.stringify(res));
+               if(res.error && res.serverGenerated){
+                console.log("error hua");
+                $location.path('/register')
+              }     
+              else{
+                console.log("mein yaha aaya tha");
+                console.log(res);
+                $rootScope.user = res;
+                var board = $resource('/api/users/leaderboard');
+                board.save(send_user, function(res){
+                 if(res.error && res.serverGenerated){
+                  console.log("error hua");
+                  $location.path('/');
+                  }     
+                  else{
+                    console.log(res);
+                    $scope.ranklist = res;
+                  }
+                }, function(err){
+                  $location.path('/');
+                });
+              }
+            }, function(err){
+             $location.path('/');
+           });             
+             console.log("me: "+JSON.stringify(response));
+           });
+    }
+  });
 
 }]);
 
@@ -264,15 +273,44 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
   };
 }]);
 
-app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', function($rootScope, $resource, $http, $routeParam, $location){
+app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', 'Facebook', function($rootScope, $resource, $http, $location, Facebook){
  $rootScope.show_nav=true;
- var user = {
-  "firstName" : $rootScope.user.firstName,
-  "lastName" : $rootScope.user.lastName,
-  "fbid" : $rootScope.user.fbid
-};
-var level = $rootScope.user.level;
+ Facebook.getLoginStatus(function(response) {
+    if (response.status != 'connected') {
+      $location.path('/');
+    }
+    else{
+      Facebook.api('/me', function(response) {
+            /**
+             * Using $rootScope.$apply since this happens outside angular framework.
+             */
+             $rootScope.$apply(function() {
+              $rootScope.user = response;
+            });
 
+             var send_user = {
+               "fbid" : $rootScope.user.id
+             };
+
+             var Check = $resource('/api/users/check');
+             Check.save(send_user, function(res){
+               console.log("res log kiya: "+JSON.stringify(res));
+               if(res.error && res.serverGenerated){
+                console.log("error hua");
+                $location.path('/register')
+              }     
+              else{
+                console.log("mein yaha aaya tha");
+                console.log(res);
+                $rootScope.user = res;
+              }
+            }, function(err){
+             $location.path('/');
+           });             
+             console.log("me: "+JSON.stringify(response));
+           });
+    }
+  });
 $rootScope.Question = function(user){
 
   var Check = $rootScope('/check');
@@ -308,3 +346,43 @@ $rootScope.Answer = function(){
 }
 }]);
 
+app.controller('rulesCtrl', ['$rootScope', '$scope', '$resource', '$location', 'Facebook', function($rootScope, $scope, $resource, $location, Facebook){
+  $rootScope.show_nav=true;
+  Facebook.getLoginStatus(function(response) {
+    if (response.status != 'connected') {
+      $location.path('/');
+    }
+    else{
+      Facebook.api('/me', function(response) {
+            /**
+             * Using $rootScope.$apply since this happens outside angular framework.
+             */
+             $rootScope.$apply(function() {
+              $rootScope.user = response;
+            });
+
+             var send_user = {
+               "fbid" : $rootScope.user.id
+             };
+
+             var Check = $resource('/api/users/check');
+             Check.save(send_user, function(res){
+               console.log("res log kiya: "+JSON.stringify(res));
+               if(res.error && res.serverGenerated){
+                console.log("error hua");
+                $location.path('/register')
+              }     
+              else{
+                console.log("mein yaha aaya tha");
+                console.log(res);
+                $rootScope.user = res;
+              }
+            }, function(err){
+             $location.path('/');
+           });             
+             console.log("me: "+JSON.stringify(response));
+           });
+    }
+  });
+
+}]);
