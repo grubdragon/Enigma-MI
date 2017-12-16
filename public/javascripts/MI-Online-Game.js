@@ -1,3 +1,11 @@
+/* collapsing navbar stuff */
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+    }
+});
+
+/*angular stuff*/
 var app = angular.module('MI-Online-Game', ['ngResource', 'ngRoute','ngSanitize','facebook']);
 
 app.config(['$routeProvider', function($routeProvider){
