@@ -342,7 +342,7 @@ $rootScope.Answer = function(){
     "lastName" : $rootScope.user.lastName,
     "fbid" : $rootScope.user.fbid,
     "level" : $rootScope.user.level,
-    "ans" : $rootScope.user.ans
+    "ans" : $scope.answer
   };
   var Check = $rootScope('/check');
   Check.save(user, function(res){
