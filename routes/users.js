@@ -60,7 +60,7 @@ router.post('/check', function(req, res){
 	});
 });
 
-router.post('/', function(req, res) {
+router.post('/create', function(req, res) {
 	var userdb = db.get('users');
 	console.log(req);
 	var firstName = req.body['firstName'];

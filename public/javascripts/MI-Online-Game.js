@@ -256,7 +256,7 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
           "email": $scope.email
         };
 
-        var Register=$resource('/api/users/');
+        var Register=$resource('/api/users/create');
         Register.save(send_user, function(res){
           if(res.success){
             $location.path('/game');      
@@ -320,7 +320,7 @@ app.controller('questionCtrl', ['$scope','$rootScope', '$resource', '$http','$lo
            });
     }
   });
-$rootScope.Question = function(user){
+$scope.Question = function(user){
 
   var Check = $rootScope('/check');
   Check.save(user, function(res){
@@ -336,7 +336,7 @@ $rootScope.Question = function(user){
  });
 }
 
-$rootScope.Answer = function(){
+$scope.Answer = function(){
   var answer = {
     "firstName" : $rootScope.user.firstName,
     "lastName" : $rootScope.user.lastName,
