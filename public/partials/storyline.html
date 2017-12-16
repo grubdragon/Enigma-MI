@@ -1,12 +1,16 @@
 <div class="container" id="mar-fin">
-  
+  <div class="row text-center" id="userid_level">
+    <div class="col-xs-12 col-md-6">Username: {{$root.user.username}}</div><div class="col-xs-12 col-md-6">Level: {{$root.user.level}}</div>
+  </div>
   <div class="row">
+    <div class="row nav-border-white-karo">
     <ul class="nav nav-tabs nav-justified">
       <li ng-class="{ active: isSet(1) }"><a data-toggle="tab" ng-click="setTab(1)" ng-class="{ active: isSet(1) }">Clue</a></li>
       <li ng-class="{ active: isSet(2) }"><a data-toggle="tab" ng-click="setTab(2)" ng-class="{ active: isSet(2) }">Storyline</a></li>
     </ul>
+    </div>
 
-    <div class="tab-content">
+    <div class="tab-content row">
       <div id="home" class="tab-pane fade" ng-show="isSet(1)"  ng-class="{ active: isSet(1),in: isSet(1) }">
         <p ng-bind-html="currentQuestion.clue"></p>
       </div>

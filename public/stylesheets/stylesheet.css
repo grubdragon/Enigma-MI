@@ -407,8 +407,11 @@ body {
   text-align:center;
 }
 
-.tab-pane p{
-  padding: 1.5em; 
+.tab-content{
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .tab-pane img{
@@ -416,11 +419,21 @@ body {
   height: auto;
 }
 
-@media only screen and (max-width: 320px) {
+.nav-border-white-karo{
+  border-style: solid;
+  border-width: medium;
+  border-color: white;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 1024px) {
   /* For mobile phones: */
   .tab-pane p{
-    padding: 1em;
     font-size: 0.8em; 
+  }
+  .tab-content{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 }
 /*animations*/
@@ -440,4 +453,8 @@ body {
 
 .shake_horizontal {
   animation-name: shake_horizontal;
+}
+
+#userid_level {
+  padding: 3% 0;
 }
