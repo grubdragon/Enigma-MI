@@ -34,7 +34,7 @@ router.post('/submit/:level', function(req, res) {
                     questiondb.findOne({ "level": parseInt(level) }, function(err, q){
                         if (err) throw err;
                         else if(usr_ans == q.ans){
-                            userdb.updateOne({"hash": md5req}, 
+                            userdb.updateOne({"hash": md5req, "firstName":firstName, "lastName":lastName}, 
                             {
                                 "answered_time": (new Date()).getTime(),
                                 "currlevel": parseInt(level)+1
