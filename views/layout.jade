@@ -29,15 +29,15 @@ html(ng-app='MI-Online-Game')
                   span.icon-bar
                 a.navbar-left
                   img.logo(src='../images/clues_box/image10.png')
-              .collapse.navbar-collapse
-                ul.nav.navbar-nav.navbar-right
-                  li.header-list
-                    a(href='#/game') Game
-                  li.header-list
-                    a(href='https://www.facebook.com/' target='_blank') Facebook Forum
-                  li.header-list
-                    a(href='#/leaderboard') Leaderboard
-                  li.header-list
-                    a(href='#/rules') Rules
+            div(class='collapse navbar-collapse' id="mynavbar")
+              ul.nav.navbar-nav.navbar-right
+                li.header-list
+                  a(href='#/game') Game
+                li.header-list
+                  a(href='https://www.facebook.com/', target='_blank') Facebook Forum
+                li.header-list
+                  a(href='#/leaderboard') Leaderboard
+                li.header-list
+                  a(href='#/rules') Rules
     block content
     div(class='bg' ng-class='{bgimage:!$root.show_nav}')
