@@ -1,6 +1,6 @@
-<div class="container leaderboard-container-fluid" style="background: #f3f3f1; overflow-y: auto;z-index: -100;">
-  <div class="table-responsive table-striped">
-    <table class="table">
+<div class="container leaderboard-container-fluid" style= "overflow-y: auto;z-index: -100;">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th>
@@ -28,34 +28,5 @@
         </tr>  
       </tbody>
     </table>
-  </div>
-
-  <div class="lb_box">
-    <div class="container leaderboard-container">
-      <ul class="leaderboard_list">
-        <li>
-           <div class="top_bar">  
-            <div class="row">
-              <div class="col-1 col-sm-1"></div>
-              <div class="col-2 col-sm-1">Rank</div>
-              <div class="col-6 col-sm-8">Username</div>
-              <div class="col-2 col-sm-1">Level</div>
-              <div class="col-1 col-sm-1"></div>
-            </div>
-          </div>
-        </li>
-        <li ng-repeat='obj in ranklist.endpoint'>
-          <div class="top_bar">         
-            <div class="row">
-              <div class="col-1 col-sm-1"></div>
-              <div class="col-2 col-sm-1">{{obj.rank}}</div>
-              <div class="col-6 col-sm-8">{{obj.username}}</div>
-              <div class="col-2 col-sm-1">{{obj.level}}</div>
-              <div class="col-1 col-sm-1"></div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>  
   </div>
 </div>

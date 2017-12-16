@@ -19,6 +19,10 @@ body {
 a {
   color: #00B7FF; }
 
+.greykaro{
+  background: #f3f3f1;
+}
+
 div.login_image1{
   width: 100%;
 }
@@ -253,70 +257,152 @@ div.image3 {
 }
 .leaderboard-container-fluid {
   height: 100%;
+  padding-top: 100px;
+  font-family: mreaves;
+  font-size: 1.5em;
 }
 .leaderboard-container{
   padding-top:3%;
   padding-bottom:3%;
 }
-.sep_line {
-  height: 1em;
-  background: #E0E1DB;
-}
-.lb_box {
-  background: #E0E1DB;
-  width: 90%;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 3.3em;
-  box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
+
+
+
+/*game*/
+
+#mar-fin{
+  padding-top: 100px;
   font-family: mreaves;
-  font-size: 1.15em;
-  padding-bottom:3%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  font-size: 1.5em;
 }
-.lb_box div {
-  z-index: 2;
-}
-.points_bar {
-  background: white;
-  border-radius: 10px;
-  border: 0.5px solid rgba(0 ,0, 0, 0.3);
-  padding: 1px 0 1px 0;
-  margin-top: 0.3em;
-}
-.points_bar > div {
-  background: #8F908C;
 
-  /*Adjust width with javascript*/
-  width: 70%; 
-
-  height: 5px;
-  border-radius: 10px;
-  margin: 0em;
-  padding: 0em;
+#mar-fin .row{
+  margin-left: 0;
+  margin-right: 0;
 }
-.bg_lb_logo {
+
+.nav-tabs.nav-justified>li>a{
+  color: #888888;
+}
+.nav-tabs.nav-justified>li>a.active{
+  color: black;
+}
+
+#clue-head{
+  height: 235px;
+}
+#clue-emp{
+  height: 235px;
+}
+
+
+#z-0{
+  z-index: 0;
+  max-width: 100%;
   position: absolute;
-  height: 50%;
-  right: 0;
-  left: 0;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+}
+
+#z-1{
   z-index: 1;
-  margin: auto;
-}
-.darrow {
+  max-width: 99%; 
   position: absolute;
-  top: 89%;
-  right: 0;
-  left: 0;
-  margin: auto;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.leaderboard_list{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+
+#z-2{
+  z-index: 1;
+  max-width: 40%; 
+  position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#rest{
+  width: 100%
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+#htctrl{
+  height: 500px;
+  overflow: auto;
+}
+
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 410px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 320px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 200px;
+    }
+}
+@media only screen and (max-width: 414px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 175px;
+    }
+}
+@media only screen and (max-width: 375px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 160px;
+    }
+}
+@media only screen and (max-width: 320px) {
+    /* For mobile phones: */
+    #htctrl {
+        height: 140px;
+    }
+}
+
+#scroll{
+  overflow: auto;
+  z-index: 3;
+}
+#heading-clue{
+  font-size: 2.5vw;
+  padding-top: 1vw;
+  padding-left: 1vw;
+}
+
+#clue_pass{
+  font-size: 2vw;
+  padding-top: 1vw;
+}
+
+#heading-story{
+  font-size: 2.5vw;
+  padding-top: 1vw;
+  text-align:center;
 }

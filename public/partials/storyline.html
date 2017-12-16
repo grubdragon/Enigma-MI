@@ -1,74 +1,40 @@
-<html>
-<head>
-  <meta charset="utf-8"> 
-  <link rel="stylesheet" href="../stylesheets/clue_box.css">
-  <link rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-  <link rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-  <link href='https://fonts.googleapis.com/css?family=Exo+2', rel='stylesheet'>
-  <meta name='viewport', content='width=device-width, initial-scale=1.0'>
-</head>
-<body>
-<!--<div class="container-fluid">
-
-  <div class="box">
-    
-    <div class="base">
-      <img id="rectangle1" src="../images/clues_box/image3.png">
-      <div id="ellipse_o">
-        <img id="ellipse" src="../images/clues_box/image4.png">
-        <img id="plus" src="../images/clues_box/image5.png">
-      </div>
-      <div class="left_flapout">
-        <img id="left_flap" src="../images/clues_box/image1.png">
-        <img id="symbol" src="../images/clues_box/image2.png">
-      </div>
-      <div class="container-fluid">
-        <div class="row" style="height:75px">
-          <div class="col-md-12" style="height:75px"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2" id="clue-emp"> </div>
-          <div class="col-md-4" id="clue-head">
-            <h1>Clue 1</h1>
-          </div>
-          <div class="col-md-4" id="clue-head"> </div>
-          <div class="col-md-2" id="clue-emp"> </div>
-
-        </div>
-      </div>
-
-    </div>  
-
-    <img id="rectangle2" src="../images/clues_box/image6.png">
-    <img id="symbol2" src="../images/clues_box/image7.png">
-    <img class="clip" src="../images/clues_box/image8.png">
-    
-  </div>
-</div>  -->
-
 <div class="container" id="mar-fin">
-  <div class="row" style="height: 100px">
-    <div class="col-md-12" style="height: 100px"></div>
-  </div>
-  <div class="row" id="htctrl">
-    <div class="col-xs-1" id="htctrl"></div>
-    <div class="col-xs-10" id="htctrl">
-      <div class="row" id="htctrl">
-      <div class="col-12" id="htctrl">
-      <img  src="../images/clues_box/image3.png" class="img-fluid" alt="Responsive image" id="z-0" >
-      <!--<div class="container-fluid">-->
-        <img  src="../images/clues_box/image6.png" class="img-fluid" alt="Responsive image" id="z-1" >
-        <img  src="../images/clues_box/image7.png" class="img-fluid" alt="Responsive image" id="z-2" >
-        <div class="col-xs-12" id="scroll">
-          <p id="heading-story">Storyline</h1>
-        </div>
-      <!--</div>-->
+  
+  <div class="row">
+    <ul class="nav nav-tabs nav-justified">
+      <li ng-class="{ active: isSet(1) }"><a data-toggle="tab" ng-click="setTab(1)" ng-class="{ active: isSet(1) }">Clue</a></li>
+      <li ng-class="{ active: isSet(2) }"><a data-toggle="tab" ng-click="setTab(2)" ng-class="{ active: isSet(2) }">Storyline</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade" ng-show="isSet(1)"  ng-class="{ active: isSet(1),in: isSet(1) }">
+        <h3>HOME</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
-      </div>
+      <div id="menu1" class="tab-pane fade" ng-show="isSet(2)"  ng-class="{ active: isSet(2),in: isSet(2) }" >
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </div>
     </div>
-    <div class="col-xs-1" id="htctrl"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-3 col-xs-1"></div>
+      <div class="form-group col-md-6 col-xs-10">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" id="answer" placeholder="Answer" ng-model="answer">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3 col-xs-1"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-3 col-xs-3"></div>
+      <div class="form-group col-md-6 col-xs-6 ">
+        <div class="col-md-3"></div>
+        <button type="submit" class="btn btn-default col-md-6 col-xs-12">Submit</button>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="col-md-3 col-xs-3"></div>
   </div>
 </div>
-</body>
-</html>

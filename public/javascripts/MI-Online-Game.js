@@ -15,7 +15,7 @@ app.config(['$routeProvider', function($routeProvider){
 		controller: 'regCtrl'
 	})
 	.when('/game', {
-		templateUrl: 'partials/game.html',
+		templateUrl: 'partials/storyline.html',
 		controller: 'questionCtrl'
 	})
   .when('/rules', {
@@ -273,9 +273,18 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
   };
 }]);
 
-app.controller('questionCtrl', ['$rootScope', '$resource', '$http','$location', 'Facebook', function($rootScope, $resource, $http, $location, Facebook){
- $rootScope.show_nav=true;
- Facebook.getLoginStatus(function(response) {
+app.controller('questionCtrl', ['$scope','$rootScope', '$resource', '$http','$location', 'Facebook', function($scope,$rootScope, $resource, $http, $location, Facebook){
+  $rootScope.show_nav=true;
+  $scope.tab = 1;
+  $scope.setTab = function(newTab){
+    $scope.tab = newTab;
+  };
+
+  $scope.isSet = function(tabNum){
+    return $scope.tab === tabNum;
+  };
+
+  Facebook.getLoginStatus(function(response) {
     if (response.status != 'connected') {
       $location.path('/');
     }
