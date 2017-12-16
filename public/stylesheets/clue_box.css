@@ -12,16 +12,20 @@ body, html {
   height: 100%; width: 100%;
   overflow: hidden;
 }
+p{
+  margin-bottom: 0px;
+}
 
-.container {
+/*.container {
   overflow: hidden;
   height: 100%; width: 100%;
   bottom: 0; left: 0; right: 0;
   margin: auto;
-}
+}*/
 .container.img {
   max-height: 100%;
   max-width: 100%;
+  overflow: auto;
 }
 
 .mar_fin{
@@ -145,9 +149,9 @@ body, html {
   border-bottom: 2px solid #8F908C;
   font-weight: bold;
 }
-.container-fluid {
+/*.container-fluid {
   height: 100%;
-}
+}*/
 .sep_line {
   height: 1em;
   background: #E0E1DB;
@@ -252,6 +256,7 @@ body, html {
 
 #htctrl{
   height: 500px;
+  overflow: auto;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -300,6 +305,21 @@ body, html {
 
 #scroll{
   overflow: auto;
-
   z-index: 3;
+}
+#heading-clue{
+  font-size: 2.5vw;
+  padding-top: 1vw;
+  padding-left: 1vw;
+}
+
+#clue_pass{
+  font-size: 2vw;
+  padding-top: 1vw;
+}
+
+#heading-story{
+  font-size: 2.5vw;
+  padding-top: 1vw;
+  text-align:center;
 }
