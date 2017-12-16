@@ -273,7 +273,7 @@ app.controller('regCtrl', ['$rootScope','$scope', '$resource','$location','Faceb
   };
 }]);
 
-app.controller('questionCtrl', ['$scope','$rootScope', '$resource', '$http','$location', 'Facebook', function($scope,$rootScope, $resource, $http, $location, Facebook){
+app.controller('questionCtrl', ['$scope','$rootScope', '$resource','$route', '$templateCache','$http','$location', 'Facebook', function($scope,$rootScope, $resource, $route, $templateCache, $http, $location, Facebook){
   $rootScope.show_nav=true;
   $scope.tab = 1;
   $scope.currentQuestion={};
@@ -283,53 +283,6 @@ app.controller('questionCtrl', ['$scope','$rootScope', '$resource', '$http','$lo
 
   $scope.isSet = function(tabNum){
     return $scope.tab === tabNum;
-  };
-
-  $scope.Question = function(user){
-
-    var Check = $resource('/api/users/check');
-    Check.save(user, function(res){
-
-     var Questions = $resource('/api/questions/levelFetch');
-
-     Questions.save({
-      "firstName" : $rootScope.user.firstName,
-      "lastName" : $rootScope.user.lastName,
-      "fbid" : $rootScope.user.fbid,
-      "level" : $rootScope.user.level
-    }, function(res){
-      $scope.currentQuestion = res;
-      console.log($scope.currentQuestion);
-    }, function(err){
-      $location.path('/');
-    });
-
-   }, function(err){
-     $location.path('/');
-   });
-  };
-
-  $scope.Answer = function(){
-    var answer = {
-      "firstName" : $rootScope.user.firstName,
-      "lastName" : $rootScope.user.lastName,
-      "fbid" : $rootScope.user.fbid,
-      "level" : $rootScope.user.level,
-      "ans" : $scope.answer
-    };
-    
-    var Check = $resource('/api/users/check');
-    Check.save(user, function(res){
-
-      var Answer = $resource('/api/questions/submit');
-      Answer.save(answer, function(res){
-        $scope.ans = res;
-      });
-
-    },function(err){
-        $location.path('/');
-    });
-
   };
 
   Facebook.getLoginStatus(function(response) {
@@ -369,6 +322,63 @@ app.controller('questionCtrl', ['$scope','$rootScope', '$resource', '$http','$lo
            });
     }
   });
+
+  $scope.Question = function(){
+    var Check = $resource('/api/users/check');
+    Check.save($rootScope.user, function(res){
+
+     var Questions = $resource('/api/questions/levelFetch');
+
+     Questions.save({
+      "firstName" : $rootScope.user.firstName,
+      "lastName" : $rootScope.user.lastName,
+      "fbid" : $rootScope.user.fbid,
+      "level" : $rootScope.user.level
+    }, function(res){
+      $scope.currentQuestion = res;
+      console.log($scope.currentQuestion);
+    }, function(err){
+      $location.path('/');
+    });
+
+   }, function(err){
+     $location.path('/');
+   });
+  };
+
+  $scope.Answer = function(){
+    console.log($rootScope.user);
+    var send_user = {
+      "firstName" : $rootScope.user.firstName,
+      "lastName" : $rootScope.user.lastName,
+      "fbid" : $rootScope.user.fbid,
+      "level" : $rootScope.user.level,
+      "ans" : $scope.answer
+    };
+    
+    var Check = $resource('/api/users/check');
+    Check.save($rootScope.user, function(res){
+
+      var Answer = $resource('/api/questions/submit');
+      Answer.save(send_user, function(res){
+        if(res.success && res.serverGenerated){
+          var currentPageTemplate = $route.current.templateUrl;
+          $templateCache.remove(currentPageTemplate);
+          $rootScope.user.level+=1;
+          $route.reload();
+        }
+        else if(!res.success){
+          var element = document.getElementById("answer");
+        }
+      });
+
+    },function(err){
+      $location.path('/');
+    });
+
+  };
+
+
 }]);
 
 app.controller('rulesCtrl', ['$rootScope', '$scope', '$resource', '$location', 'Facebook', function($rootScope, $scope, $resource, $location, Facebook){

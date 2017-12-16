@@ -34,10 +34,12 @@ router.post('/submit', function(req, res) {
                     questiondb.findOne({ "level": parseInt(level) }, function(err, que){
                         if (err) throw err;
                         else if(usr_ans == que.ans){
-                            userdb.updateOne({"hash": md5req, "firstName":firstName, "lastName":lastName}, 
+                            userdb.update({"hash": md5req, "firstName":firstName, "lastName":lastName},
                             {
-                                "answered_time": (new Date()).getTime(),
-                                "currlevel": parseInt(level)+1
+                                $set: {
+                                    "answered_time": (new Date()).getTime(),
+                                    "currLevel": parseInt(level)+1
+                                }
                             });
 
                             res.json({"success":"Proceed to next level","serverGenerated":1});

@@ -49,7 +49,13 @@ router.post('/check', function(req, res){
 		if (err) throw err;
 
 		else if(usr){
-			res.json(usr);
+			res.json({
+				'firstName': usr.firstName,
+				'lastName': usr.lastName,
+				'username': usr.username,
+				'fbid': usr.fbid,
+				'level': usr.currLevel
+			});
 			res.status(200);
 		}
 
